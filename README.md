@@ -1,1 +1,9 @@
-# COMP-2522-202410-Term-Project-LittleEdian
+# Welcome to Edian Adventure
+
+## Creators:
+
+Ian Chan | **A00910012** | beingaturtle
+
+Edro Gonzales | **A01257468** | Nog-bs
+
+# Game development in progress...
