@@ -20,24 +20,31 @@ public class COMP2522TermProject extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Rectangle bucket;
 
+	// create
 	@Override
 	public void create() {
 		// 64x64 pixels each
 		dropImage = new Texture(Gdx.files.internal("bucket.png"));
 		bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
-
+		// audio files
 		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
 		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
 
+		// loop the music, so it repeats
 		rainMusic.setLooping(true);
+		// play the music
 		rainMusic.play();
 
+		// create camera object
 		camera = new OrthographicCamera();
+		// set the camera to focus on our entire gui
 		camera.setToOrtho(false, 800 , 600);
 
+		// create new sprite
 		batch = new SpriteBatch();
 
+		// create hitbox
 		bucket = new Rectangle();
 		bucket.x = 800 / 2 - 64 / 2;
 		bucket.y = 20;
@@ -46,21 +53,28 @@ public class COMP2522TermProject extends ApplicationAdapter {
 	}
 
 	@Override
+	// Render sprite/images
 	public void render() {
+		// dark blue colour (r, g, b, a)
 		ScreenUtils.clear(0, 0, 0.2f, 1);
 
+		// each movement, need to update screen
 		camera.update();
 
+		// Set the matrix, combine camera with height and width (800 x 600) of GUI
 		batch.setProjectionMatrix(camera.combined);
+		// Like FileIO, open the file, draw whatever is in .draw, then close file to update
 		batch.begin();
 		batch.draw(bucketImage, bucket.x, bucket.y);
 		batch.end();
 
+		// input keys
 		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
 //		// TODO: Need to create logic for jump, goes up for some time, stop, then go down
 		if(Gdx.input.isKeyPressed(Input.Keys.UP)) bucket.y += 200 * Gdx.graphics.getDeltaTime();
 
+		// border conditions
 		if(bucket.x < 0) bucket.x = 0;
 		if(bucket.x > 800 - 64) bucket.x = 800 - 64;
 		if(bucket.y > 600 - 64) bucket.y = 600 - 64;
