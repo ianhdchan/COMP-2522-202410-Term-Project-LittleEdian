@@ -1,31 +1,27 @@
 package ca.bcit.comp2522.termproject;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 public class COMP2522TermProject extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
-	}
+	private Texture dropImage;
+	private Texture bucketImage;
+	private Sound dropSound;
+	private Music rainMusic;
 
 	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
-	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+	public void create() {
+		// 64x64 pixels each
+		dropImage = new Texture(Gdx.files.internal("bucket.png"));
+		bucketImage = new Texture(Gdx.files.internal("bucket.png"));
+
+		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
+		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+
+		rainMusic.setLooping(true);
+		rainMusic.play();
 	}
 }
