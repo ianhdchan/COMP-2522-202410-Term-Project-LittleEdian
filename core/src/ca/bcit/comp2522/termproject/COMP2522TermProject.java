@@ -2,6 +2,7 @@ package ca.bcit.comp2522.termproject;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -54,6 +55,15 @@ public class COMP2522TermProject extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(bucketImage, bucket.x, bucket.y);
 		batch.end();
+
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
+//		// TODO: Need to create logic for jump, goes up for some time, stop, then go down
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)) bucket.y += 200 * Gdx.graphics.getDeltaTime();
+
+		if(bucket.x < 0) bucket.x = 0;
+		if(bucket.x > 800 - 64) bucket.x = 800 - 64;
+		if(bucket.y > 600 - 64) bucket.y = 600 - 64;
 
 	}
 }
