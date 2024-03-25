@@ -8,8 +8,13 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
+
+import java.util.Iterator;
 
 public class COMP2522TermProject extends ApplicationAdapter {
 	private Texture dropImage;
@@ -19,12 +24,14 @@ public class COMP2522TermProject extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private Rectangle bucket;
+	private Array<Rectangle> raindrops;
+	private long lastDropTime;
 
 	// create
 	@Override
 	public void create() {
 		// 64x64 pixels each
-		dropImage = new Texture(Gdx.files.internal("bucket.png"));
+		dropImage = new Texture(Gdx.files.internal("drop.png"));
 		bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
 		// audio files
@@ -50,6 +57,9 @@ public class COMP2522TermProject extends ApplicationAdapter {
 		bucket.y = 20;
 		bucket.width = 64;
 		bucket.height = 64;
+
+		raindrops = new Array<Rectangle>();
+		spawnRainDrop();
 	}
 
 	@Override
@@ -65,19 +75,48 @@ public class COMP2522TermProject extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 		// Like FileIO, open the file, draw whatever is in .draw, then close file to update
 		batch.begin();
+
 		batch.draw(bucketImage, bucket.x, bucket.y);
+		for (Rectangle raindrop: raindrops) {
+			batch.draw(dropImage, raindrop.x, raindrop.y);
+		}
+
 		batch.end();
 
 		// input keys
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= 200 * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) bucket.x -= 400 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) bucket.x += 400 * Gdx.graphics.getDeltaTime();
 //		// TODO: Need to create logic for jump, goes up for some time, stop, then go down
-		if(Gdx.input.isKeyPressed(Input.Keys.UP)) bucket.y += 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)) bucket.y += 400 * Gdx.graphics.getDeltaTime();
 
 		// border conditions
 		if(bucket.x < 0) bucket.x = 0;
 		if(bucket.x > 800 - 64) bucket.x = 800 - 64;
 		if(bucket.y > 600 - 64) bucket.y = 600 - 64;
+		if (TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnRainDrop();
 
+		// [Raindrop1, Raindrop2]
+		for (Iterator<Rectangle> iter = raindrops.iterator(); iter.hasNext();) {
+			Rectangle raindrop = iter.next();
+			raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
+			if (raindrop.y + 64 < 0) iter.remove();
+			if (raindrop.overlaps(bucket)) {
+				dropSound.play();
+				iter.remove();
+			}
+		}
+	}
+
+	/*
+	 * Spawns rain drops.
+	 */
+	private void spawnRainDrop() {
+		Rectangle raindrop = new Rectangle();
+		raindrop.x = MathUtils.random(0, 800 - 64);
+		raindrop.y = 600;
+		raindrop.width = 64;
+		raindrop.height = 64;
+		raindrops.add(raindrop);
+		lastDropTime = TimeUtils.nanoTime();
 	}
 }
