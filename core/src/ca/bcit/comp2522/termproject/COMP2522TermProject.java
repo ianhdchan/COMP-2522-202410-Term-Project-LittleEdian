@@ -13,9 +13,15 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-
 import java.util.Iterator;
 
+/**
+ * Holds all the logic of rendering the game.
+ *
+ * @author Edro Gonzales A01257468
+ * @author Ian Chan A00910012
+ * @version 2024
+ */
 public class COMP2522TermProject extends ApplicationAdapter {
 	private Texture dropImage;
 	private Texture bucketImage;
@@ -27,7 +33,9 @@ public class COMP2522TermProject extends ApplicationAdapter {
 	private Array<Rectangle> raindrops;
 	private long lastDropTime;
 
-	// create
+	/**
+	 * Creates the scene for game and initializes assets.
+	 */
 	@Override
 	public void create() {
 		// 64x64 pixels each
@@ -62,6 +70,9 @@ public class COMP2522TermProject extends ApplicationAdapter {
 		spawnRainDrop();
 	}
 
+	/**
+	 * Renders objects onto orthographic camera screen.
+	 */
 	@Override
 	// Render sprite/images
 	public void render() {
