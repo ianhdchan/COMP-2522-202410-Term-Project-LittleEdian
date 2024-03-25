@@ -4,8 +4,20 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import ca.bcit.comp2522.termproject.COMP2522TermProject;
 
-// Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
+/**
+ * Launches the game application.
+ *
+ * @author Edro Gonzales A01257468
+ * @author Ian Chan A00910012
+ * @version 2024
+ */
+
 public class DesktopLauncher {
+
+	/**
+	 * Drives the program
+	 * @param arg unused
+	 */
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Little Cowboy Edian");
