@@ -122,6 +122,7 @@ public class COMP2522TermProject extends ApplicationAdapter {
 
 	/**
 	 * Dispose resource to free memory when application is closed.
+	 * TODO: Always dispose resource when we add a new image/sound/music
 	 */
 	@Override
 	public void dispose() {
