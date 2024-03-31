@@ -8,11 +8,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MainMenuScreen implements Screen {
 
-    final Drop game;
+    final COMP2522TermProject game;
 
     OrthographicCamera camera;
 
-    public MainMenuScreen(Drop game) {
+    public MainMenuScreen(COMP2522TermProject game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -34,6 +34,7 @@ public class MainMenuScreen implements Screen {
         game.batch.begin();
         game.font.draw(game.batch, "Welcome to Little Cowboy Edian baby!", 100, 150);
         game.font.draw(game.batch, "Press the Space Bar to begin.", 100, 150);
+        game.batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             game.setScreen(new GameScreen(game));

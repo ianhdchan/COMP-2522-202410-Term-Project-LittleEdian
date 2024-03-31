@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import java.util.Iterator;
 
 public class GameScreen implements Screen {
-    final Drop game;
+    final COMP2522TermProject game;
 
     Texture dropImage;
     Texture bucketImage;
@@ -28,11 +28,11 @@ public class GameScreen implements Screen {
     long lastDropTime;
     int dropsGathered;
 
-    public GameScreen(final Drop game) {
+    public GameScreen(final COMP2522TermProject game) {
         this.game = game;
 
         // load the images for droplet and bucket, 64 x 64 pixels each
-        dropImage = new Texture(Gdx.files.internal("droplet.png"));
+        dropImage = new Texture(Gdx.files.internal("drop.png"));
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
         // load the drop sound effect and include rain background music
@@ -69,6 +69,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        // start playback of background music when screen is shown
+        rainMusic.play();
 
     }
 
@@ -92,6 +94,7 @@ public class GameScreen implements Screen {
             game.batch.draw(dropImage, raindrop.x, raindrop.y);
         }
         game.batch.end();
+
 
         // process user's input
         // LEFT KEY PRESSED
