@@ -1,7 +1,10 @@
 package ca.bcit.comp2522.termproject;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MainMenuScreen implements Screen {
 
@@ -22,7 +25,20 @@ public class MainMenuScreen implements Screen {
     }
 
     @Override
-    public void render(float v) {
+    public void render(float delta) {
+        ScreenUtils.clear(0, 0, 0.2f, 1);
+
+        camera.update();
+        game.batch.setProjectionMatrix(camera.combined);
+
+        game.batch.begin();
+        game.font.draw(game.batch, "Welcome to Little Cowboy Edian baby!", 100, 150);
+        game.font.draw(game.batch, "Press the Space Bar to begin.", 100, 150);
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            game.setScreen(new GameScreen(game));
+            dispose();
+        }
 
     }
 
