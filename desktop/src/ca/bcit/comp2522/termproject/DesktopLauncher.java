@@ -2,7 +2,6 @@ package ca.bcit.comp2522.termproject;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import ca.bcit.comp2522.termproject.COMP2522TermProject;
 
 /**
  * Launches the game application.
@@ -25,5 +24,6 @@ public class DesktopLauncher {
 		config.useVsync(true);
 		config.setForegroundFPS(60);
 		new Lwjgl3Application(new COMP2522TermProject(), config);
+
 	}
 }
