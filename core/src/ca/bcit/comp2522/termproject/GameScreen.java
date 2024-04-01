@@ -17,13 +17,24 @@ import java.util.Iterator;
 
 public class GameScreen implements Screen {
     final COMP2522TermProject game;
+    Texture cowboyStillL;
+    Texture cowboyStillR;
+    Texture cowboyL1;
+    Texture cowboyL2;
+    Texture cowboyL3;
+    Texture cowboyR1;
+    Texture cowboyR2;
+    Texture cowboyR3;
+    Texture cowboyJumpR;
+    Texture cowboyJumpL;
+    Texture ufo;
 
     Texture dropImage;
     Texture bucketImage;
     Sound dropSound;
     Music rainMusic;
     OrthographicCamera camera;
-    Rectangle bucket;
+    Rectangle cowboy;
     Array<Rectangle> raindrops;
     long lastDropTime;
     int dropsGathered;
@@ -50,6 +61,20 @@ public class GameScreen implements Screen {
         dropImage = new Texture(Gdx.files.internal("drop.png"));
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
+        // load cowboy sprite images, 64 x 64 pixels each
+        cowboyStillL = new Texture(Gdx.files.internal("Cowboy_StillL.png"));
+        cowboyStillR = new Texture(Gdx.files.internal("Cowboy_StillR.png"));
+        cowboyJumpL = new Texture(Gdx.files.internal("Cowboy_LJump.png"));
+        cowboyJumpR = new Texture(Gdx.files.internal("Cowboy_RJump.png"));
+        cowboyL1 = new Texture(Gdx.files.internal("Cowboy_L1.png"));
+        cowboyL2 = new Texture(Gdx.files.internal("Cowboy_L2.png"));
+        cowboyL3 = new Texture(Gdx.files.internal("Cowboy_L3.png"));
+        cowboyR1 = new Texture(Gdx.files.internal("Cowboy_R1.png"));
+        cowboyR2 = new Texture(Gdx.files.internal("Cowboy_R2.png"));
+        cowboyR3 = new Texture(Gdx.files.internal("Cowboy_R3.png"));
+        ufo = new Texture(Gdx.files.internal("ufo_sprite.png"));
+
+
         // load the drop sound effect and include rain background music
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
         rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
@@ -59,13 +84,13 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
 
-        // Create hitbox (rectangle) to represent the bucket
-        bucket = new Rectangle();
-        bucket.x = 800 / 2 - 64 / 2; // This centers the bucket horizontally (x-axis)
-        bucket.y = 20; // bottom
+        // Create hitbox (rectangle) to represent the cowboy
+        cowboy = new Rectangle();
+        cowboy.x = 800 / 2 - 64 / 2; // This centers the bucket horizontally (x-axis)
+        cowboy.y = 20; // bottom
 
-        bucket.width = 64; // 64 pixels
-        bucket.height = 64; // 64 pixels
+        cowboy.width = 64; // 64 pixels
+        cowboy.height = 64; // 64 pixels
 
         // create object array (raindrop as an example) and spawn the first object
         raindrops = new Array<Rectangle>();
@@ -104,7 +129,7 @@ public class GameScreen implements Screen {
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
         game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 600);
-        game.batch.draw(bucketImage, bucket.x, bucket.y, bucket.width, bucket.height);
+        game.batch.draw(cowboyStillL, cowboy.x, cowboy.y, cowboy.width, cowboy.height);
         for (Rectangle raindrop : raindrops) {
             game.batch.draw(dropImage, raindrop.x, raindrop.y);
         }
@@ -114,11 +139,11 @@ public class GameScreen implements Screen {
         // process user's input
         // LEFT KEY PRESSED
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            bucket.x -= 200 * Gdx.graphics.getDeltaTime();
+            cowboy.x -= 200 * Gdx.graphics.getDeltaTime();
         }
         // RIGHT KEY PRESSED
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            bucket.x += 200 * Gdx.graphics.getDeltaTime();
+            cowboy.x += 200 * Gdx.graphics.getDeltaTime();
         }
 
         // todo: ugly smelly code please fix
@@ -129,29 +154,29 @@ public class GameScreen implements Screen {
         }
 
         if (isJumping) {
-            bucket.y += jumpVelocity * Gdx.graphics.getDeltaTime();
-            if (bucket.y >= MAX_JUMP_HEIGHT - 1) {
+            cowboy.y += jumpVelocity * Gdx.graphics.getDeltaTime();
+            if (cowboy.y >= MAX_JUMP_HEIGHT - 1) {
                 isJumping = false;
                 isFalling = true;
             }
         } else if (isFalling) {
-            bucket.y -= jumpVelocity * Gdx.graphics.getDeltaTime();
-            if (bucket.y <= 0) {
+            cowboy.y -= jumpVelocity * Gdx.graphics.getDeltaTime();
+            if (cowboy.y <= 0) {
                 isJumping = false;
                 isFalling = false;
             }
         }
 
-        if (bucket.y < 0) {
-            bucket.y  = 0;
+        if (cowboy.y < 0) {
+            cowboy.y  = 0;
         }
 
         // Ensure bucket stays within screen bounds
-        if (bucket.x < 0) {
-            bucket.x = 0;
+        if (cowboy.x < 0) {
+            cowboy.x = 0;
         }
-        if (bucket.x > 800 - 64) {
-            bucket.x = 800 - 64;
+        if (cowboy.x > 800 - 64) {
+            cowboy.x = 800 - 64;
         }
 
         // Check if game needs to create new object (Raindrop)
@@ -167,7 +192,7 @@ public class GameScreen implements Screen {
             if (raindrop.y + 64 < 0) {
                 iter.remove();
             }
-            if (raindrop.overlaps(bucket)) {
+            if (raindrop.overlaps(cowboy)) {
                 dropsGathered++;
                 dropSound.play();
                 iter.remove();
