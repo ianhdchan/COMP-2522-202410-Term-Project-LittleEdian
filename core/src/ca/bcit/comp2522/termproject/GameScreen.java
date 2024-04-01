@@ -28,6 +28,21 @@ public class GameScreen implements Screen {
     long lastDropTime;
     int dropsGathered;
 
+    /** Determines isJumping state of character. */
+    private boolean isJumping = false;
+
+    /** Determines isJumping state of character. */
+    private boolean isFalling = false;
+
+    /** How fast the jump action will be. */
+    private float jumpVelocity = 250;
+
+    /** How fast the falling portion of the jump will be. */
+    private float gravity = 30;
+
+    /** Max Jump Height. */
+    private float MAX_JUMP_HEIGHT = 200;
+
     public GameScreen(final COMP2522TermProject game) {
         this.game = game;
 
@@ -104,6 +119,31 @@ public class GameScreen implements Screen {
         // RIGHT KEY PRESSED
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             bucket.x += 200 * Gdx.graphics.getDeltaTime();
+        }
+
+        // todo: ugly smelly code please fix
+        //  y
+        // JUMP LOGIC
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && !isJumping && !isFalling) {
+            isJumping = true;
+        }
+
+        if (isJumping) {
+            bucket.y += jumpVelocity * Gdx.graphics.getDeltaTime();
+            if (bucket.y >= MAX_JUMP_HEIGHT - 1) {
+                isJumping = false;
+                isFalling = true;
+            }
+        } else if (isFalling) {
+            bucket.y -= jumpVelocity * Gdx.graphics.getDeltaTime();
+            if (bucket.y <= 0) {
+                isJumping = false;
+                isFalling = false;
+            }
+        }
+
+        if (bucket.y < 0) {
+            bucket.y  = 0;
         }
 
         // Ensure bucket stays within screen bounds
