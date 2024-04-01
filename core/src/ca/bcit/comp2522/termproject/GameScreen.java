@@ -7,6 +7,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
@@ -17,7 +19,14 @@ import java.util.Iterator;
 
 public class GameScreen implements Screen {
     final COMP2522TermProject game;
+    Texture[] runningLeft = new Texture[3];
+    Texture[] runningRight = new Texture[3];
+    Sprite[] runningLeftSprite = new Sprite[3];
+    Sprite[] runningRightSprite = new Sprite[3];
+
+
     Texture cowboyStillL;
+    Texture cowboyImage;
     Texture cowboyStillR;
     Texture cowboyL1;
     Texture cowboyL2;
@@ -38,6 +47,12 @@ public class GameScreen implements Screen {
     Array<Rectangle> raindrops;
     long lastDropTime;
     int dropsGathered;
+
+    /** Tracks current frame of sprites **/
+    private int currentFrame = 0;
+    /** Checks if sprite is facing left **/
+    boolean isFacingLeft = false;
+
 
     /** Determines isJumping state of character. */
     private boolean isJumping = false;
@@ -61,17 +76,27 @@ public class GameScreen implements Screen {
         dropImage = new Texture(Gdx.files.internal("drop.png"));
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
-        // load cowboy sprite images, 64 x 64 pixels each
+        // load cowboy sprite images for running left, 64 x 64 pixels each
+        runningLeft[0] = new Texture(Gdx.files.internal("Cowboy_L1.png"));
+        runningLeft[1] = new Texture(Gdx.files.internal("Cowboy_L2.png"));
+        runningLeft[2] = new Texture(Gdx.files.internal("Cowboy_L3.png"));
+        for (int i = 0; i < 3; i++) {
+            runningLeftSprite[i] = new Sprite(runningLeft[i]);
+        }
+        // load cowboy sprite images for running right, 64 x 64 pixels each
+        runningRight[0] = new Texture(Gdx.files.internal("Cowboy_R1.png"));
+        runningRight[1] = new Texture(Gdx.files.internal("Cowboy_R2.png"));
+        runningRight[2] = new Texture(Gdx.files.internal("Cowboy_R3.png"));
+        for (int i = 0; i < 3; i++) {
+            runningRightSprite[i] = new Sprite(runningRight[i]);
+        }
+
+        // load cowboy sprite images for no movement, 64 x 64 pixels each
         cowboyStillL = new Texture(Gdx.files.internal("Cowboy_StillL.png"));
         cowboyStillR = new Texture(Gdx.files.internal("Cowboy_StillR.png"));
-        cowboyJumpL = new Texture(Gdx.files.internal("Cowboy_LJump.png"));
-        cowboyJumpR = new Texture(Gdx.files.internal("Cowboy_RJump.png"));
-        cowboyL1 = new Texture(Gdx.files.internal("Cowboy_L1.png"));
-        cowboyL2 = new Texture(Gdx.files.internal("Cowboy_L2.png"));
-        cowboyL3 = new Texture(Gdx.files.internal("Cowboy_L3.png"));
-        cowboyR1 = new Texture(Gdx.files.internal("Cowboy_R1.png"));
-        cowboyR2 = new Texture(Gdx.files.internal("Cowboy_R2.png"));
-        cowboyR3 = new Texture(Gdx.files.internal("Cowboy_R3.png"));
+//        cowboyJumpL = new Texture(Gdx.files.internal("Cowboy_LJump.png"));
+//        cowboyJumpR = new Texture(Gdx.files.internal("Cowboy_RJump.png"));
+
         ufo = new Texture(Gdx.files.internal("ufo_sprite.png"));
 
 
@@ -95,6 +120,7 @@ public class GameScreen implements Screen {
         // create object array (raindrop as an example) and spawn the first object
         raindrops = new Array<Rectangle>();
         spawnRainDrop();
+
     }
 
     private void spawnRainDrop() {
@@ -129,22 +155,27 @@ public class GameScreen implements Screen {
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
         game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 600);
-        game.batch.draw(cowboyStillL, cowboy.x, cowboy.y, cowboy.width, cowboy.height);
         for (Rectangle raindrop : raindrops) {
             game.batch.draw(dropImage, raindrop.x, raindrop.y);
         }
-        game.batch.end();
 
 
-        // process user's input
+        // Process user input
+
         // LEFT KEY PRESSED
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            updateSprite(runningLeftSprite);
             cowboy.x -= 200 * Gdx.graphics.getDeltaTime();
-        }
-        // RIGHT KEY PRESSED
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        // Right key pressed
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            updateSprite(runningRightSprite);
             cowboy.x += 200 * Gdx.graphics.getDeltaTime();
+        // Checks if facing left direction
+        } else {
+            Texture stillSprite = isFacingLeft ? cowboyStillL : cowboyStillR;
+            game.batch.draw(stillSprite, cowboy.x, cowboy.y);
         }
+
 
         // todo: ugly smelly code please fix
         //  y
@@ -166,12 +197,14 @@ public class GameScreen implements Screen {
                 isFalling = false;
             }
         }
+        game.batch.end();
+
 
         if (cowboy.y < 0) {
             cowboy.y  = 0;
         }
 
-        // Ensure bucket stays within screen bounds
+        // Ensure cowboy stays within screen bounds
         if (cowboy.x < 0) {
             cowboy.x = 0;
         }
@@ -200,6 +233,13 @@ public class GameScreen implements Screen {
         }
     }
 
+    private void updateSprite(Sprite[] runningSprite) {
+        currentFrame = (currentFrame + 1) % runningSprite.length;
+        runningSprite[currentFrame].setPosition(cowboy.x, cowboy.y);
+        runningSprite[currentFrame].draw(game.batch);
+        isFacingLeft = Gdx.input.isKeyPressed(Input.Keys.LEFT); // update facing direction
+    }
+
     @Override
     public void resize(int width, int height) {
 
@@ -224,6 +264,18 @@ public class GameScreen implements Screen {
     public void dispose() {
         dropImage.dispose();
         bucketImage.dispose();
+        cowboyImage.dispose();
+        cowboyL1.dispose();
+        cowboyL2.dispose();
+        cowboyL3.dispose();
+
+        cowboyR1.dispose();
+
+        cowboyR2.dispose();
+        cowboyR3.dispose();
+        cowboyStillL.dispose();
+        cowboyStillR.dispose();
+
         dropSound.dispose();
         rainMusic.dispose();
 
