@@ -38,13 +38,13 @@ public class GameScreen implements Screen {
     Texture cowboyJumpL;
     Texture ufo;
 
-    Texture dropImage;
+    Texture laserImage;
     Texture bucketImage;
     Sound dropSound;
     Music rainMusic;
     OrthographicCamera camera;
     Rectangle cowboy;
-    Array<Rectangle> raindrops;
+    Array<Rectangle> lasers;
     long lastDropTime;
     int dropsGathered;
 
@@ -73,7 +73,7 @@ public class GameScreen implements Screen {
         this.game = game;
 
         // load the images for droplet and bucket, 64 x 64 pixels each
-        dropImage = new Texture(Gdx.files.internal("drop.png"));
+        laserImage = new Texture(Gdx.files.internal("laser.png"));
         bucketImage = new Texture(Gdx.files.internal("bucket.png"));
 
         // load cowboy sprite images for running left, 64 x 64 pixels each
@@ -118,18 +118,18 @@ public class GameScreen implements Screen {
         cowboy.height = 64; // 64 pixels
 
         // create object array (raindrop as an example) and spawn the first object
-        raindrops = new Array<Rectangle>();
+        lasers = new Array<Rectangle>();
         spawnRainDrop();
 
     }
 
     private void spawnRainDrop() {
-        Rectangle raindrop = new Rectangle();
-        raindrop.x = MathUtils.random(0, 800 - 64);
-        raindrop.y = 600;
-        raindrop.width = 64; // 64 pixels wide
-        raindrop.height = 64; // 64 pixels height
-        raindrops.add(raindrop); // add the raindrops into the array
+        Rectangle laserbeam = new Rectangle();
+        laserbeam.x = MathUtils.random(0, 800 - 64);
+        laserbeam.y = 600;
+        laserbeam.width = 10; // 64 pixels wide
+        laserbeam.height = 64; // 64 pixels height
+        lasers.add(laserbeam); // add the raindrops into the array
         lastDropTime = TimeUtils.nanoTime(); // Calculates the time from when the last object dropped
     }
 
@@ -155,8 +155,8 @@ public class GameScreen implements Screen {
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
         game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 600);
-        for (Rectangle raindrop : raindrops) {
-            game.batch.draw(dropImage, raindrop.x, raindrop.y);
+        for (Rectangle raindrop : lasers) {
+            game.batch.draw(laserImage, raindrop.x, raindrop.y);
         }
 
 
@@ -218,14 +218,14 @@ public class GameScreen implements Screen {
         }
 
         // Move raindrops, remove any that are beneath bottom edge of screen or that hit the bucket.
-        Iterator<Rectangle> iter = raindrops.iterator();
+        Iterator<Rectangle> iter = lasers.iterator();
         while (iter.hasNext()) {
-            Rectangle raindrop = iter.next();
-            raindrop.y -= 200 * Gdx.graphics.getDeltaTime();
-            if (raindrop.y + 64 < 0) {
+            Rectangle laserdrop = iter.next();
+            laserdrop.y -= 200 * Gdx.graphics.getDeltaTime();
+            if (laserdrop.y + 64 < 0) {
                 iter.remove();
             }
-            if (raindrop.overlaps(cowboy)) {
+            if (laserdrop.overlaps(cowboy)) {
                 dropsGathered++;
                 dropSound.play();
                 iter.remove();
@@ -262,7 +262,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        dropImage.dispose();
+        laserImage.dispose();
         bucketImage.dispose();
         cowboyImage.dispose();
         cowboyL1.dispose();
