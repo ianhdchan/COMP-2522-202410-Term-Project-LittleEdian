@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f262ecf-4186-4208-a07a-48e6eeeefb5d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,37 +24,24 @@
         <task path="$PROJECT_DIR$/desktop">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="COMP-2522-202410-Term-Project-LittleEdian" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="COMP-2522-202410-Term-Project-LittleEdian" type="f1a62948:ProjectNode" />
-                <item name="desktop" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="COMP-2522-202410-Term-Project-LittleEdian" type="f1a62948:ProjectNode" />
-                <item name="desktop" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="COMP-2522-202410-Term-Project-LittleEdian" type="f1a62948:ProjectNode" />
-                <item name="desktop" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </tree_state>
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -62,9 +49,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2dyRLsxaYdL3PBgEh3e5RobQv5R" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -73,26 +60,37 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.COMP2522TermProject.executor": "Run",
+    "Gradle.Build COMP-2522-202410-Term-Project-LittleEdian.executor": "Run",
+    "Gradle.COMP-2522-202410-Term-Project-LittleEdian [dependencies].executor": "Run",
+    "Gradle.COMP-2522-202410-Term-Project-LittleEdian [test].executor": "Run",
     "Gradle.COMP-2522-202410-Term-Project-LittleEdian:desktop [:desktop:DesktopLauncher.main()].executor": "Run",
     "Gradle.COMP-2522-202410-Term-Project-LittleEdian:desktop [run].executor": "Run",
+    "Gradle.COMP2522TermProjectTest.executor": "Run",
+    "Gradle.COMP2522TermProjectTest.testThatAlwaysPasses.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/ian/Desktop/BCIT/Term_2/COMP2522(Java)/Term_Project/COMP-2522-202410-Term-Project-LittleEdian/build.gradle",
+    "last_opened_file_path": "C:/Users/edrog/school/2522/gdx-testing",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.COMP-2522-202410-Term-Project-LittleEdian:desktop [run]">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\edrog\school\2522\COMP-2522-202410-Term-Project-LittleEdian\tests\src" />
+      <recent name="C:\Users\edrog\school\2522\COMP-2522-202410-Term-Project-LittleEdian" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.COMP2522TermProjectTest">
     <configuration name="COMP2522TermProject" type="Application" factoryName="Application">
       <option name="ALTERNATIVE_JRE_PATH" value="18" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -102,10 +100,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="COMP-2522-202410-Term-Project-LittleEdian:desktop [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="COMP-2522-202410-Term-Project-LittleEdian [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/desktop" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
         <option name="taskDescriptions">
@@ -113,7 +111,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="run" />
+            <option value="dependencies" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -124,23 +122,117 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="COMP-2522-202410-Term-Project-LittleEdian [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="COMP2522TermProjectTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":tests:test" />
+            <option value="--tests" />
+            <option value="&quot;ca.bcit.comp2522.termproject.COMP2522TermProjectTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="COMP2522TermProjectTest.testThatAlwaysPasses" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":tests:test" />
+            <option value="--tests" />
+            <option value="&quot;ca.bcit.comp2522.termproject.COMP2522TermProjectTest.testThatAlwaysPasses&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="SampleTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":tests:test" />
+            <option value="--tests" />
+            <option value="&quot;ca.bcit.comp2522.termproject.SampleTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.COMP2522TermProject" />
-      <item itemvalue="Gradle.COMP-2522-202410-Term-Project-LittleEdian:desktop [run]" />
+      <item itemvalue="Gradle.COMP-2522-202410-Term-Project-LittleEdian [dependencies]" />
+      <item itemvalue="Gradle.COMP-2522-202410-Term-Project-LittleEdian [test]" />
+      <item itemvalue="Gradle.COMP2522TermProjectTest" />
+      <item itemvalue="Gradle.SampleTest" />
+      <item itemvalue="Gradle.COMP2522TermProjectTest.testThatAlwaysPasses" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.COMP-2522-202410-Term-Project-LittleEdian:desktop [run]" />
+        <item itemvalue="Gradle.COMP2522TermProjectTest" />
+        <item itemvalue="Gradle.SampleTest" />
+        <item itemvalue="Gradle.COMP-2522-202410-Term-Project-LittleEdian [test]" />
+        <item itemvalue="Gradle.COMP-2522-202410-Term-Project-LittleEdian [dependencies]" />
+        <item itemvalue="Gradle.COMP2522TermProjectTest.testThatAlwaysPasses" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-18.0.2-corretto-18.0.2-4caba194b151-68fdadd5" />
-        <option value="jdk-21.0.2-openjdk-21.0.2-f644763e9732-a81d5c7c" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -151,6 +243,9 @@
       <option name="presentableId" value="Default" />
       <updated>1710978280288</updated>
       <workItem from="1710978281500" duration="2948000" />
+      <workItem from="1712335828829" duration="444000" />
+      <workItem from="1712336296539" duration="1687000" />
+      <workItem from="1712337999176" duration="2126000" />
     </task>
     <servers />
   </component>

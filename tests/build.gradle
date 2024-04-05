@@ -1,0 +1,20 @@
+project(":tests") {
+    apply plugin: "java"
+
+    sourceSets.test.java.srcDirs = ["src/"]
+
+    dependencies {
+        implementation project(":core")
+
+        testImplementation "org.junit.jupiter:junit-jupiter:5.9.0"  // Or your desired version
+        testImplementation "org.mockito:mockito-core:4.+"        // Or your desired version
+
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    }
+    tasks.withType(Test).tap {
+        configureEach {
+            useJUnitPlatform() // Add this line
+        }
+    }
+}
