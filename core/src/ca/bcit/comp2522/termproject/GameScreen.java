@@ -14,7 +14,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-
 import java.util.Iterator;
 
 public class GameScreen implements Screen {
@@ -47,7 +46,18 @@ public class GameScreen implements Screen {
     Array<Rectangle> lasers;
     Array<Rectangle> enemies;
     long lastDropTime;
+    double lastSpawnTime;
     int dropsGathered;
+    long lowerbound = 5000000000L;
+    long upperbound = 10000000000L;
+    long timeDifference = 3000000000L;
+
+    private float lifeTime;
+    private float delay = 10000L; // 1000 milli per sec
+
+    public void create() {
+        lifeTime = System.currentTimeMillis();
+    }
 
     /** Tracks current frame of sprites **/
     private int currentFrame = 0;
@@ -145,7 +155,7 @@ public class GameScreen implements Screen {
         enemy.width = 64;
         enemy.height = 64;
         enemies.add(enemy);
-        lastDropTime = TimeUtils.nanoTime();
+        lastSpawnTime = TimeUtils.nanoTime();
     }
 
     @Override
@@ -176,6 +186,13 @@ public class GameScreen implements Screen {
         for (Rectangle eachEnemy: enemies) {
             game.batch.draw(bucketImage, eachEnemy.x, eachEnemy.y);
         }
+
+        lifeTime += Gdx.graphics.getDeltaTime();
+        if (lifeTime == delay) {
+            timeDifference = 1000000000L;
+        }
+        System.out.println(lifeTime);
+
 
 
         // Process user input
@@ -233,7 +250,14 @@ public class GameScreen implements Screen {
         // Check if game needs to create new object (Raindrop)
         if (TimeUtils.nanoTime() - lastDropTime > 1000000000) {
             spawnRainDrop();
+        }
+
+        long randomNanoseconds = timeDifference + MathUtils.random(upperbound - lowerbound);
+
+        if (TimeUtils.nanoTime() - lastSpawnTime > randomNanoseconds) {
             spawnEnemy();
+            System.out.println("Random nanoseconds: " + randomNanoseconds);
+
         }
 
         // Move raindrops, remove any that are beneath bottom edge of screen or that hit the bucket.
