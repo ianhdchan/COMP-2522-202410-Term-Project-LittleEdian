@@ -33,19 +33,13 @@ public class GameScreen implements Screen {
     Texture cowboyR1;
     Texture cowboyR2;
     Texture cowboyR3;
-    Texture cowboyJumpR;
-    Texture cowboyJumpL;
-    Texture ufo;
-
     Texture laserImage;
     Texture bucketImage;
     Sound dropSound;
     Music rainMusic;
     OrthographicCamera camera;
     Rectangle cowboy;
-    Array<Rectangle> lasers;
     Array<Rectangle> enemies;
-    long lastDropTime;
     double lastSpawnTime;
     int dropsGathered;
     long lowerbound = 5000000000L;
@@ -79,6 +73,8 @@ public class GameScreen implements Screen {
 
     /** Max Jump Height. */
     private float MAX_JUMP_HEIGHT = 200;
+    Laser laser = new Laser(this);
+
 
     public GameScreen(final COMP2522TermProject game) {
         this.game = game;
@@ -105,10 +101,6 @@ public class GameScreen implements Screen {
         // load cowboy sprite images for no movement, 64 x 64 pixels each
         cowboyStillL = new Texture(Gdx.files.internal("Cowboy_StillL.png"));
         cowboyStillR = new Texture(Gdx.files.internal("Cowboy_StillR.png"));
-//        cowboyJumpL = new Texture(Gdx.files.internal("Cowboy_LJump.png"));
-//        cowboyJumpR = new Texture(Gdx.files.internal("Cowboy_RJump.png"));
-
-        ufo = new Texture(Gdx.files.internal("ufo_sprite.png"));
 
 
         // load the drop sound effect and include rain background music
@@ -129,8 +121,7 @@ public class GameScreen implements Screen {
         cowboy.height = 64; // 64 pixels
 
         // create object array (laser as an example) and spawn the first object
-        lasers = new Array<Rectangle>();
-        spawnRainDrop();
+        laser.spawnEnemy();
 
         // create object array (enemy) and spawn the first object
         enemies = new Array<Rectangle>();
@@ -138,15 +129,6 @@ public class GameScreen implements Screen {
 
     }
 
-    private void spawnRainDrop() {
-        Rectangle laserbeam = new Rectangle();
-        laserbeam.x = MathUtils.random(0, 800 - 64);
-        laserbeam.y = 600;
-        laserbeam.width = 10; // 10 pixels wide
-        laserbeam.height = 64; // 64 pixels height
-        lasers.add(laserbeam); // add the laserbeam into the array
-        lastDropTime = TimeUtils.nanoTime(); // Calculates the time from when the last object dropped
-    }
 
     private void spawnEnemy() {
         Rectangle enemy = new Rectangle();
@@ -162,7 +144,7 @@ public class GameScreen implements Screen {
     public void show() {
         // start playback of background music when screen is shown
         rainMusic.play();
-
+        laser.spawnEnemy();
     }
 
     @Override
@@ -180,7 +162,7 @@ public class GameScreen implements Screen {
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
         game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 600);
-        for (Rectangle laserdrop : lasers) {
+        for (Rectangle laserdrop : laser.enemy) {
             game.batch.draw(laserImage, laserdrop.x, laserdrop.y);
         }
         for (Rectangle eachEnemy: enemies) {
@@ -248,8 +230,8 @@ public class GameScreen implements Screen {
         }
 
         // Check if game needs to create new object (Raindrop)
-        if (TimeUtils.nanoTime() - lastDropTime > 1000000000) {
-            spawnRainDrop();
+        if (TimeUtils.nanoTime() - laser.lastSpawnTime > 1000000000) {
+            laser.spawnEnemy();
         }
 
         long randomNanoseconds = timeDifference + MathUtils.random(upperbound - lowerbound);
@@ -260,20 +242,8 @@ public class GameScreen implements Screen {
 
         }
 
-        // Move raindrops, remove any that are beneath bottom edge of screen or that hit the bucket.
-        Iterator<Rectangle> iterLaser = lasers.iterator();
-        while (iterLaser.hasNext()) {
-            Rectangle laserdrop = iterLaser.next();
-            laserdrop.y -= 200 * Gdx.graphics.getDeltaTime();
-            if (laserdrop.y + 64 < 0) {
-                iterLaser.remove();
-            }
-            if (laserdrop.overlaps(cowboy)) {
-                dropsGathered++;
-                dropSound.play();
-                iterLaser.remove();
-            }
-        }
+        // Move laser, remove any that are beneath bottom edge of screen or that hit the bucket.
+        laser.removeEnemy();
 
         Iterator<Rectangle> iterEnemy = enemies.iterator();
         while (iterEnemy.hasNext()) {
