@@ -13,27 +13,26 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameScreen implements Screen {
     protected final COMP2522TermProject game;
-    protected final Texture laserImage;
-    protected int healthPoints = 3;
+    protected int oneSecond = 1000000000;
+    protected int healthPoints = 0;
     private long timeDifference = 3000000000L;
-    private float lifeTime;
     OrthographicCamera camera;
     Texture background;
     Sound damageNoise;
     Music battleBGM;
     Laser laser = new Laser(this);
     Bandit bandit = new Bandit(this);
+    Bandit bandit2 = new Bandit(this);
+
     Cowboy player = new Cowboy(this);
+    ChangeDifficulty changeDifficulty = new ChangeDifficulty(this);
 
 
     public GameScreen(final COMP2522TermProject game) {
         float MUSIC_VOLUME = 0.1F;
         this.game = game;
 
-        // load the images for droplet and bucket, 64 x 64 pixels each
-        laserImage = new Texture(Gdx.files.internal("laser.png"));
-
-
+        // load the images for cowboy, 64 x 64 pixels each
         player.cowboyStillTexture();
 
         background = new TextureRegion(new Texture("background.jpg"), 0, 0, 800, 600).getTexture();
@@ -54,6 +53,8 @@ public class GameScreen implements Screen {
 
         // create object array (bandit) and spawn the first object
         bandit.spawnEnemy();
+        bandit2.spawnEnemy();
+
     }
 
 
@@ -85,6 +86,9 @@ public class GameScreen implements Screen {
 
         // Draw bandit (left to right)
         bandit.drawEnemy();
+        // Draw bandit (right to left)
+        bandit2.drawEnemy();
+
 
         // Process user input
         player.cowboyMovement();
@@ -97,7 +101,10 @@ public class GameScreen implements Screen {
         long upperBound = 10000000000L;
         long randomNanoseconds = timeDifference + MathUtils.random(upperBound - lowerBound);
         // Check if game needs to create new object (Raindrop)
-        if (TimeUtils.nanoTime() - laser.lastSpawnTime > 1000000000) {
+
+        changeDifficulty.timer();
+
+        if (TimeUtils.nanoTime() - laser.lastSpawnTime > oneSecond) {
             laser.spawnEnemy();
         }
 
@@ -105,31 +112,26 @@ public class GameScreen implements Screen {
             bandit.spawnEnemy();
         }
 
+        if (TimeUtils.nanoTime() - bandit2.lastSpawnTime > randomNanoseconds) {
+            bandit2.spawnEnemy();
+        }
+
         // Remove laser, any that are beneath bottom edge of screen or that hit the cowboy.
         laser.removeEnemy();
         // Remove bandit, any that hit the cowboy or goes off the screen
         bandit.removeEnemy();
+        bandit2.removeEnemy();
+
     }
 
     @Override
     public void render(float delta) {
-        float delay = 10000L;
 
         draw();
-
-        lifeTime += Gdx.graphics.getDeltaTime();
-        if (lifeTime == delay) {
-            timeDifference = 1000000000L;
-        }
 
         player.isWithinBounds();
 
         updateEnemy();
-
-        if (healthPoints <= 0) {
-            game.setScreen(new GameOverScreen(game));
-            dispose();
-        }
     }
 
     @Override
@@ -155,8 +157,6 @@ public class GameScreen implements Screen {
     // todo[EDRO]: dispose all instantiated objects for GameOverScreen
     @Override
     public void dispose() {
-        background.dispose();
-        laserImage.dispose();
         damageNoise.dispose();
         battleBGM.dispose();
     }
