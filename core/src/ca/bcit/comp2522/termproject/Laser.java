@@ -38,4 +38,12 @@ public class Laser extends Enemy {
         }
 
     }
+
+    @Override
+    void drawEnemy() {
+        for (Rectangle laserDrop : enemy) {
+            gameScreen.game.batch.draw(gameScreen.laserImage, laserDrop.x, laserDrop.y);
+        }
+    }
+
 }
