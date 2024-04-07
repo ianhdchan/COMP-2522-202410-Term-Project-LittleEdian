@@ -16,7 +16,7 @@ public class Laser extends Enemy {
         laserBeam.x = MathUtils.random(0, 800 - 64);
         laserBeam.y = 600;
         laserBeam.width = 1; // 1 pixels wide
-        laserBeam.height = 64; // 64 pixels height
+        laserBeam.height = 40; // 64 pixels height
         enemy.add(laserBeam); // add the laserbeam into the array
         lastSpawnTime = TimeUtils.nanoTime();
     }

@@ -19,7 +19,7 @@ public class Bandit extends Enemy {
         eachBandit.x = 0;
         eachBandit.y = 10;
         eachBandit.width = 30; // 10 pixels wide
-        eachBandit.height = 64; // 64 pixels height
+        eachBandit.height = 50; // 64 pixels height
         enemy.add(eachBandit); // add the laserbeam into the array
         lastSpawnTime = TimeUtils.nanoTime();
     }
