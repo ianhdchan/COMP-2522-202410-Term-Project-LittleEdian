@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameScreen implements Screen {
     protected final COMP2522TermProject game;
     protected final Texture laserImage;
-    protected int dropsGathered;
+    protected int healthPoints = 0;
     private long timeDifference = 3000000000L;
     private float lifeTime;
     OrthographicCamera camera;
@@ -81,7 +81,7 @@ public class GameScreen implements Screen {
 
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
-        game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 600);
+        game.font.draw(game.batch, "Health Points: " + healthPoints, 0, 600);
 
         // Draw Lasers
         laser.drawEnemy();
