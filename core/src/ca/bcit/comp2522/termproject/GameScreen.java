@@ -33,31 +33,17 @@ public class GameScreen implements Screen {
     Texture cowboyR3;
     Sound damageNoise;
     Music battleBGM;
-
     Laser laser = new Laser(this);
     Bandit bandit = new Bandit(this);
     Cowboy player = new Cowboy(this);
-
-    /** Tracks current frame of sprites **/
     private int currentFrame = 0;
-    /** Checks if sprite is facing left **/
     boolean isFacingLeft = false;
-
-    /** Determines isJumping state of character. */
     private boolean isJumping = false;
-
-    /** Determines isJumping state of character. */
     private final boolean isFalling = false;
-
-    /** How fast the jump action will be. */
     private float jumpVelocity = 250;
-
-    /** How fast the falling portion of the jump will be. */
     private float gravity = 30;
     private final float MUSIC_VOLUME = 0.1F;
     private final float GENERAL_VOLUME = 0.5F;
-
-    /** Max Jump Height. */
     private float MAX_JUMP_HEIGHT = 200;
 
 
