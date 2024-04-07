@@ -26,7 +26,7 @@ public class Bandit extends Enemy {
         iterEnemy = enemy.iterator();
         while (iterEnemy.hasNext()) {
             Rectangle banditRun = iterEnemy.next();
-            banditRun.x += 200 * Gdx.graphics.getDeltaTime();
+            banditRun.x += 150 * Gdx.graphics.getDeltaTime();
             if (banditRun.x + 64 < 0) {
                 iterEnemy.remove();
             }
