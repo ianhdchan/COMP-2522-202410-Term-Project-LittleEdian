@@ -74,6 +74,7 @@ public class GameScreen implements Screen {
     /** Max Jump Height. */
     private float MAX_JUMP_HEIGHT = 200;
     Laser laser = new Laser(this);
+    Bandit bandit = new Bandit(this);
 
 
     public GameScreen(final COMP2522TermProject game) {
@@ -123,28 +124,16 @@ public class GameScreen implements Screen {
         // create object array (laser as an example) and spawn the first object
         laser.spawnEnemy();
 
-        // create object array (enemy) and spawn the first object
-        enemies = new Array<Rectangle>();
-        spawnEnemy();
+        // create object array (bandit) and spawn the first object
+        bandit.spawnEnemy();
 
     }
 
-
-    private void spawnEnemy() {
-        Rectangle enemy = new Rectangle();
-        enemy.x = 0;
-        enemy.y = 10;
-        enemy.width = 64;
-        enemy.height = 64;
-        enemies.add(enemy);
-        lastSpawnTime = TimeUtils.nanoTime();
-    }
 
     @Override
     public void show() {
         // start playback of background music when screen is shown
         rainMusic.play();
-        laser.spawnEnemy();
     }
 
     @Override
@@ -162,12 +151,13 @@ public class GameScreen implements Screen {
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
         game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 600);
-        for (Rectangle laserdrop : laser.enemy) {
-            game.batch.draw(laserImage, laserdrop.x, laserdrop.y);
-        }
-        for (Rectangle eachEnemy: enemies) {
-            game.batch.draw(bucketImage, eachEnemy.x, eachEnemy.y);
-        }
+
+        // Draw Lasers
+        laser.drawEnemy();
+
+        // Draw bandit (left to right)
+        bandit.drawEnemy();
+
 
         lifeTime += Gdx.graphics.getDeltaTime();
         if (lifeTime == delay) {
@@ -236,27 +226,18 @@ public class GameScreen implements Screen {
 
         long randomNanoseconds = timeDifference + MathUtils.random(upperbound - lowerbound);
 
-        if (TimeUtils.nanoTime() - lastSpawnTime > randomNanoseconds) {
-            spawnEnemy();
+        if (TimeUtils.nanoTime() - bandit.lastSpawnTime > randomNanoseconds) {
+            bandit.spawnEnemy();
             System.out.println("Random nanoseconds: " + randomNanoseconds);
 
         }
 
-        // Move laser, remove any that are beneath bottom edge of screen or that hit the bucket.
+        // Remove laser, any that are beneath bottom edge of screen or that hit the cowboy.
         laser.removeEnemy();
+        // Remove bandit, any that hit the cowboy or goes off the screen
+        bandit.removeEnemy();
 
-        Iterator<Rectangle> iterEnemy = enemies.iterator();
-        while (iterEnemy.hasNext()) {
-            Rectangle enemyRun = iterEnemy.next();
-            enemyRun.x += 200 * Gdx.graphics.getDeltaTime();
-            if (enemyRun.x + 64 > 800) {
-                iterEnemy.remove();
-            }
-            if (enemyRun.overlaps(cowboy)) {
-                //lose health
-                iterEnemy.remove();
-            }
-        }
+
     }
 
     private void updateSprite(Sprite[] runningSprite) {
