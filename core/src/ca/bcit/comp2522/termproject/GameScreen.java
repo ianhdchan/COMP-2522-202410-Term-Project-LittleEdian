@@ -62,6 +62,8 @@ public class GameScreen implements Screen {
 
     /** How fast the falling portion of the jump will be. */
     private float gravity = 30;
+    private final float MUSIC_VOLUME = 0.1F;
+    private final float GENERAL_VOLUME = 0.5F;
 
     /** Max Jump Height. */
     private float MAX_JUMP_HEIGHT = 200;
@@ -100,7 +102,7 @@ public class GameScreen implements Screen {
         // load the drop sound effect and include rain background music
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
         battleBGM = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
-        battleBGM.setVolume(0.1F);
+        battleBGM.setVolume(MUSIC_VOLUME);
         battleBGM.setLooping(true);
 
         // create camera and Sprites
