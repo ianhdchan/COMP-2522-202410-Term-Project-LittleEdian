@@ -18,6 +18,7 @@ abstract public class Enemy {
 
     abstract void spawnEnemy();
     abstract void removeEnemy();
+    abstract void drawEnemy();
 
 
 
