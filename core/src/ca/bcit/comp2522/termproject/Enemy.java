@@ -21,5 +21,5 @@ abstract public class Enemy {
     abstract void drawEnemy();
 
 
-
+    public abstract void dispose();
 }
