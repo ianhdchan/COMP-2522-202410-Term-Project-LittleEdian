@@ -31,6 +31,7 @@ public class Bandit extends Enemy {
                 iterEnemy.remove();
             }
             if (banditRun.overlaps(gameScreen.player.cowboy)) {
+                gameScreen.healthPoints--;
                 gameScreen.damageNoise.setVolume(gameScreen.damageNoise.play(),
                         0.3F);
                 iterEnemy.remove();

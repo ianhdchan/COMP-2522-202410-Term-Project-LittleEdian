@@ -7,6 +7,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -20,6 +22,7 @@ public class GameScreen implements Screen {
     protected final Texture cowboyStillL;
     protected final Texture cowboyStillR;
     protected final Texture laserImage;
+    private final Texture backgroundTexture;
     protected final Texture bucketImage;
     protected int healthPoints = 3;
     private long timeDifference = 3000000000L;
@@ -64,6 +67,8 @@ public class GameScreen implements Screen {
         // load cowboy sprite images for no movement, 64 x 64 pixels each
         cowboyStillL = new Texture(Gdx.files.internal("Cowboy_StillL.png"));
         cowboyStillR = new Texture(Gdx.files.internal("Cowboy_StillR.png"));
+
+        backgroundTexture = new TextureRegion(new Texture("background.jpg"), 0, 0, 800, 600).getTexture();
 
         // load the drop sound effect and include rain background music
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
@@ -112,6 +117,7 @@ public class GameScreen implements Screen {
 
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
+        game.batch.draw(backgroundTexture, 0, 0, 800, 600);
         game.font.draw(game.batch, "Health Points: " + healthPoints, 10, 590);
 
         // Draw Lasers
