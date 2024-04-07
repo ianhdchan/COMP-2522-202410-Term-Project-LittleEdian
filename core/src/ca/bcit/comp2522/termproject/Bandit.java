@@ -30,7 +30,7 @@ public class Bandit extends Enemy {
             if (banditRun.x + 64 < 0) {
                 iterEnemy.remove();
             }
-            if (banditRun.overlaps(gameScreen.cowboy)) {
+            if (banditRun.overlaps(gameScreen.player.cowboy)) {
                 iterEnemy.remove();
             }
         }
