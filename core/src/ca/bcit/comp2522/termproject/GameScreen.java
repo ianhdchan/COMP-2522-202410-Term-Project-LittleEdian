@@ -152,6 +152,7 @@ public class GameScreen implements Screen {
 
     }
 
+    // todo[EDRO]: dispose all instantiated objects for GameOverScreen
     @Override
     public void dispose() {
         background.dispose();
