@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -24,6 +24,7 @@ public class GameScreen implements Screen {
     Texture cowboyR1;
     Texture cowboyR2;
     Texture cowboyR3;
+    Texture background;
     Sound damageNoise;
     Music battleBGM;
     Laser laser = new Laser(this);
@@ -41,24 +42,7 @@ public class GameScreen implements Screen {
 
         player.cowboyStillTexture();
 
-//        // load cowboy sprite images for running left, 64 x 64 pixels each
-//        runningLeft[0] = new Texture(Gdx.files.internal("Cowboy_L1.png"));
-//        runningLeft[1] = new Texture(Gdx.files.internal("Cowboy_L2.png"));
-//        runningLeft[2] = new Texture(Gdx.files.internal("Cowboy_L3.png"));
-//        for (int i = 0; i < 3; i++) {
-//            runningLeftSprite[i] = new Sprite(runningLeft[i]);
-//        }
-//        // load cowboy sprite images for running right, 64 x 64 pixels each
-//        runningRight[0] = new Texture(Gdx.files.internal("Cowboy_R1.png"));
-//        runningRight[1] = new Texture(Gdx.files.internal("Cowboy_R2.png"));
-//        runningRight[2] = new Texture(Gdx.files.internal("Cowboy_R3.png"));
-//        for (int i = 0; i < 3; i++) {
-//            runningRightSprite[i] = new Sprite(runningRight[i]);
-//        }
-//
-//        // load cowboy sprite images for no movement, 64 x 64 pixels each
-//        cowboyStillL = new Texture(Gdx.files.internal("Cowboy_StillL.png"));
-//        cowboyStillR = new Texture(Gdx.files.internal("Cowboy_StillR.png"));
+        background = new TextureRegion(new Texture("background.jpg"), 0, 0, 800, 600).getTexture();
 
         // load the drop sound effect and include rain background music
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
@@ -76,6 +60,8 @@ public class GameScreen implements Screen {
 
         // create object array (bandit) and spawn the first object
         bandit.spawnEnemy();
+
+
     }
 
     public void create() {
@@ -107,6 +93,7 @@ public class GameScreen implements Screen {
 
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
+        game.batch.draw(background, 0, 0);
         game.font.draw(game.batch, "Health Points: " + healthPoints, 0, 600);
 
         // Draw Lasers
@@ -166,7 +153,6 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         laserImage.dispose();
-//        bucketImage.dispose();
         cowboyL1.dispose();
         cowboyL2.dispose();
         cowboyL3.dispose();
@@ -174,8 +160,6 @@ public class GameScreen implements Screen {
         cowboyR1.dispose();
         cowboyR2.dispose();
         cowboyR3.dispose();
-//        cowboyStillL.dispose();
-//        cowboyStillR.dispose();
 
         damageNoise.dispose();
         battleBGM.dispose();
