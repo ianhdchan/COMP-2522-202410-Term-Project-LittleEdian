@@ -133,16 +133,11 @@ public class GameScreen implements Screen {
         if (lifeTime == delay) {
             timeDifference = 1000000000L;
         }
-        System.out.println(lifeTime);
-
-
 
         // Process user input
         player.cowboyMovement();
 
-
         game.batch.end();
-
 
         // checks if player is within screen boundaries
        player.isWithinBounds();
@@ -158,8 +153,6 @@ public class GameScreen implements Screen {
 
         if (TimeUtils.nanoTime() - bandit.lastSpawnTime > randomNanoseconds) {
             bandit.spawnEnemy();
-            System.out.println("Random nanoseconds: " + randomNanoseconds);
-
         }
 
         // Remove laser, any that are beneath bottom edge of screen or that hit the cowboy.
