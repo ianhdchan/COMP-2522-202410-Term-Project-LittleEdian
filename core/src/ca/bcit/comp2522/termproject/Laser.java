@@ -32,7 +32,7 @@ public class Laser extends Enemy {
             }
             if (laserDrop.overlaps(gameScreen.player.cowboy)) {
                 gameScreen.dropsGathered++;
-                gameScreen.dropSound.play();
+                gameScreen.damageNoise.play();
                 iterEnemy.remove();
             }
         }

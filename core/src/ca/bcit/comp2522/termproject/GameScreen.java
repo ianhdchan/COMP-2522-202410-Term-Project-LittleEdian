@@ -1,20 +1,15 @@
 package ca.bcit.comp2522.termproject;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import java.util.Iterator;
 
 public class GameScreen implements Screen {
     final COMP2522TermProject game;
@@ -35,8 +30,8 @@ public class GameScreen implements Screen {
     Texture cowboyR3;
     Texture laserImage;
     Texture bucketImage;
-    Sound dropSound;
-    Music battleMusic;
+    Sound damageNoise;
+    Music battleBGM;
     OrthographicCamera camera;
     int dropsGathered;
     long lowerbound = 5000000000L;
@@ -103,10 +98,9 @@ public class GameScreen implements Screen {
 
 
         // load the drop sound effect and include rain background music
-        dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        battleMusic = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
-        battleMusic.setVolume(0.1F);
-        battleMusic.setLooping(true);
+        damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
+        battleBGM = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
+        battleBGM.setLooping(true);
 
         // create camera and Sprites
         camera = new OrthographicCamera();
@@ -127,7 +121,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         // start playback of background music when screen is shown
-        battleMusic.play();
+        battleBGM.play();
     }
 
     @Override
@@ -227,8 +221,8 @@ public class GameScreen implements Screen {
         cowboyStillL.dispose();
         cowboyStillR.dispose();
 
-        dropSound.dispose();
-        battleMusic.dispose();
+        damageNoise.dispose();
+        battleBGM.dispose();
 
     }
 }
