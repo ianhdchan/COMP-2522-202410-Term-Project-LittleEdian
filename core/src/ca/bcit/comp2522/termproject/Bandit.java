@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class Bandit extends Enemy {
     protected Texture ufoImage;
     public float speed = 150;
-    public int leftToRight = 0;
+    public int xMovement = 0;
 
     public Bandit(final GameScreen gameScreen) {
         super(gameScreen);
@@ -17,7 +17,7 @@ public class Bandit extends Enemy {
     @Override
     void spawnEnemy() {
         Rectangle eachBandit = new Rectangle();
-        eachBandit.x = leftToRight;
+        eachBandit.x = xMovement;
         eachBandit.y = 10;
         eachBandit.width = 30; // 10 pixels wide
         eachBandit.height = 50; // 64 pixels height
