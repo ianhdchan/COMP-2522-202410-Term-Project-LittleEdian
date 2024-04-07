@@ -7,15 +7,15 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GameScreen implements Screen {
     protected final COMP2522TermProject game;
     protected int oneSecond = 1000000000;
     protected int healthPoints = 0;
-    private long timeDifference = 3000000000L;
+
     OrthographicCamera camera;
     Texture background;
     Sound damageNoise;
@@ -79,7 +79,11 @@ public class GameScreen implements Screen {
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
         game.batch.draw(background, 0, 0, 800, 600);
+        game.font.setColor(0,0,0,1);
         game.font.draw(game.batch, "Health Points: " + healthPoints, 0, 600);
+
+        String formattedTime = String.format("%.2f", changeDifficulty.timeSeconds);
+        game.font.draw(game.batch, "Time: " + formattedTime, 0, 580);
 
         // Draw Lasers
         laser.drawEnemy();
@@ -98,9 +102,9 @@ public class GameScreen implements Screen {
 
     private void updateEnemy() {
         long lowerBound = 5000000000L;
-        long upperBound = 10000000000L;
-        long randomNanoseconds = timeDifference + MathUtils.random(upperBound - lowerBound);
-        // Check if game needs to create new object (Raindrop)
+        long upperBound = 7000000000L;
+        long randomNanoseconds = ThreadLocalRandom.current().nextLong(lowerBound, upperBound);
+
 
         changeDifficulty.timer();
 
@@ -112,8 +116,12 @@ public class GameScreen implements Screen {
             bandit.spawnEnemy();
         }
 
-        if (TimeUtils.nanoTime() - bandit2.lastSpawnTime > randomNanoseconds) {
-            bandit2.spawnEnemy();
+        long randomNanoseconds2 = ThreadLocalRandom.current().nextLong(lowerBound, upperBound);
+
+        if (changeDifficulty.timeSeconds > 30) {
+            if (TimeUtils.nanoTime() - bandit2.lastSpawnTime > randomNanoseconds2) {
+                bandit2.spawnEnemy();
+            }
         }
 
         // Remove laser, any that are beneath bottom edge of screen or that hit the cowboy.
@@ -161,5 +169,6 @@ public class GameScreen implements Screen {
         battleBGM.dispose();
         laser.dispose();
         bandit.dispose();
+        bandit2.dispose();
     }
 }
