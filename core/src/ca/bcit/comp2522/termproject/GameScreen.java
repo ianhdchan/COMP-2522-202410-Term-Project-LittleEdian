@@ -36,18 +36,10 @@ public class GameScreen implements Screen {
     Laser laser = new Laser(this);
     Bandit bandit = new Bandit(this);
     Cowboy player = new Cowboy(this);
-    private int currentFrame = 0;
-    boolean isFacingLeft = false;
-    private boolean isJumping = false;
-    private final boolean isFalling = false;
-    private float jumpVelocity = 250;
-    private float gravity = 30;
-    private final float MUSIC_VOLUME = 0.1F;
-    private final float GENERAL_VOLUME = 0.5F;
-    private float MAX_JUMP_HEIGHT = 200;
 
 
     public GameScreen(final COMP2522TermProject game) {
+        float MUSIC_VOLUME = 0.1F;
         this.game = game;
 
         // load the images for droplet and bucket, 64 x 64 pixels each
@@ -73,17 +65,14 @@ public class GameScreen implements Screen {
         cowboyStillL = new Texture(Gdx.files.internal("Cowboy_StillL.png"));
         cowboyStillR = new Texture(Gdx.files.internal("Cowboy_StillR.png"));
 
-
         // load the drop sound effect and include rain background music
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
         battleBGM = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
         battleBGM.setVolume(MUSIC_VOLUME);
         battleBGM.setLooping(true);
-
         // create camera and Sprites
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
-
         // Create object (rectangle) to represent the cowboy
         player.createCowboy();
 
@@ -92,7 +81,6 @@ public class GameScreen implements Screen {
 
         // create object array (bandit) and spawn the first object
         bandit.spawnEnemy();
-
     }
 
     public void create() {
@@ -107,6 +95,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        float delay = 10000L;
+        long lowerBound = 5000000000L;
+        long upperbound = 10000000000L;
+        long randomNanoseconds = timeDifference + MathUtils.random(upperbound - lowerBound);
+
         // Clear the screen with dark blue colour. Arguments to clear are red, green, blue, and alpha
         // component in the range [0, 1] of the colour to be used to clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -129,7 +122,6 @@ public class GameScreen implements Screen {
 
 
         lifeTime += Gdx.graphics.getDeltaTime();
-        float delay = 10000L;
         if (lifeTime == delay) {
             timeDifference = 1000000000L;
         }
@@ -140,16 +132,12 @@ public class GameScreen implements Screen {
         game.batch.end();
 
         // checks if player is within screen boundaries
-       player.isWithinBounds();
+        player.isWithinBounds();
 
         // Check if game needs to create new object (Raindrop)
         if (TimeUtils.nanoTime() - laser.lastSpawnTime > 1000000000) {
             laser.spawnEnemy();
         }
-
-        long lowerBound = 5000000000L;
-        long upperbound = 10000000000L;
-        long randomNanoseconds = timeDifference + MathUtils.random(upperbound - lowerBound);
 
         if (TimeUtils.nanoTime() - bandit.lastSpawnTime > randomNanoseconds) {
             bandit.spawnEnemy();
@@ -196,6 +184,5 @@ public class GameScreen implements Screen {
 
         damageNoise.dispose();
         battleBGM.dispose();
-
     }
 }
