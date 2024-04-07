@@ -1,11 +1,14 @@
 package ca.bcit.comp2522.termproject;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Bandit extends Enemy {
+    protected Texture ufoImage;
+
     public Bandit(final GameScreen gameScreen) {
         super(gameScreen);
     }
@@ -41,8 +44,9 @@ public class Bandit extends Enemy {
 
     @Override
     void drawEnemy() {
+        ufoImage = new Texture(Gdx.files.internal("ufo_sprite.png"));
         for (Rectangle aBandit: enemy) {
-            gameScreen.game.batch.draw(gameScreen.bucketImage, aBandit.x, aBandit.y);
+            gameScreen.game.batch.draw(ufoImage, aBandit.x, aBandit.y);
         }
     }
 }
