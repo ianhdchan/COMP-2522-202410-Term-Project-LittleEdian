@@ -24,6 +24,5 @@ public class DesktopLauncher {
 		config.useVsync(true);
 		config.setForegroundFPS(60);
 		new Lwjgl3Application(new COMP2522TermProject(), config);
-
 	}
 }
