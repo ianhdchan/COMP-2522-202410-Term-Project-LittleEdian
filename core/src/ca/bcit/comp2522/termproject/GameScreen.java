@@ -12,50 +12,42 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameScreen implements Screen {
-    final COMP2522TermProject game;
-    Texture[] runningLeft = new Texture[3];
-    Texture[] runningRight = new Texture[3];
-    Sprite[] runningLeftSprite = new Sprite[3];
-    Sprite[] runningRightSprite = new Sprite[3];
-
-
-    Texture cowboyStillL;
-    Texture cowboyImage;
-    Texture cowboyStillR;
+    protected final COMP2522TermProject game;
+    protected final Texture[] runningLeft = new Texture[3];
+    protected final Texture[] runningRight = new Texture[3];
+    protected final Sprite[] runningLeftSprite = new Sprite[3];
+    protected final Sprite[] runningRightSprite = new Sprite[3];
+    protected final Texture cowboyStillL;
+    protected final Texture cowboyStillR;
+    protected final Texture laserImage;
+    protected final Texture bucketImage;
+    protected int dropsGathered;
+    private long timeDifference = 3000000000L;
+    private float lifeTime;
+    OrthographicCamera camera;
     Texture cowboyL1;
     Texture cowboyL2;
     Texture cowboyL3;
     Texture cowboyR1;
     Texture cowboyR2;
     Texture cowboyR3;
-    Texture laserImage;
-    Texture bucketImage;
     Sound damageNoise;
     Music battleBGM;
-    OrthographicCamera camera;
-    int dropsGathered;
-    long lowerbound = 5000000000L;
-    long upperbound = 10000000000L;
-    long timeDifference = 3000000000L;
 
-    private float lifeTime;
-    private float delay = 10000L; // 1000 milli per sec
-
-    public void create() {
-        lifeTime = System.currentTimeMillis();
-    }
+    Laser laser = new Laser(this);
+    Bandit bandit = new Bandit(this);
+    Cowboy player = new Cowboy(this);
 
     /** Tracks current frame of sprites **/
     private int currentFrame = 0;
     /** Checks if sprite is facing left **/
     boolean isFacingLeft = false;
 
-
     /** Determines isJumping state of character. */
     private boolean isJumping = false;
 
     /** Determines isJumping state of character. */
-    private boolean isFalling = false;
+    private final boolean isFalling = false;
 
     /** How fast the jump action will be. */
     private float jumpVelocity = 250;
@@ -65,9 +57,6 @@ public class GameScreen implements Screen {
 
     /** Max Jump Height. */
     private float MAX_JUMP_HEIGHT = 200;
-    Laser laser = new Laser(this);
-    Bandit bandit = new Bandit(this);
-    Cowboy player = new Cowboy(this);
 
 
     public GameScreen(final COMP2522TermProject game) {
@@ -118,6 +107,9 @@ public class GameScreen implements Screen {
 
     }
 
+    public void create() {
+        lifeTime = System.currentTimeMillis();
+    }
 
     @Override
     public void show() {
@@ -149,6 +141,7 @@ public class GameScreen implements Screen {
 
 
         lifeTime += Gdx.graphics.getDeltaTime();
+        float delay = 10000L;
         if (lifeTime == delay) {
             timeDifference = 1000000000L;
         }
@@ -171,7 +164,9 @@ public class GameScreen implements Screen {
             laser.spawnEnemy();
         }
 
-        long randomNanoseconds = timeDifference + MathUtils.random(upperbound - lowerbound);
+        long lowerBound = 5000000000L;
+        long upperbound = 10000000000L;
+        long randomNanoseconds = timeDifference + MathUtils.random(upperbound - lowerBound);
 
         if (TimeUtils.nanoTime() - bandit.lastSpawnTime > randomNanoseconds) {
             bandit.spawnEnemy();
@@ -211,7 +206,6 @@ public class GameScreen implements Screen {
     public void dispose() {
         laserImage.dispose();
         bucketImage.dispose();
-        cowboyImage.dispose();
         cowboyL1.dispose();
         cowboyL2.dispose();
         cowboyL3.dispose();
