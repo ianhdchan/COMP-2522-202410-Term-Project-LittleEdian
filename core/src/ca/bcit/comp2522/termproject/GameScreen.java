@@ -154,13 +154,10 @@ public class GameScreen implements Screen {
         if (TimeUtils.nanoTime() - bandit.lastSpawnTime > randomNanoseconds) {
             bandit.spawnEnemy();
         }
-
         // Remove laser, any that are beneath bottom edge of screen or that hit the cowboy.
         laser.removeEnemy();
         // Remove bandit, any that hit the cowboy or goes off the screen
         bandit.removeEnemy();
-
-
     }
 
     @Override
