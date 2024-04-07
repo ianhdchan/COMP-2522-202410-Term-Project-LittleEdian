@@ -36,7 +36,7 @@ public class GameScreen implements Screen {
     Texture laserImage;
     Texture bucketImage;
     Sound dropSound;
-    Music rainMusic;
+    Music battleMusic;
     OrthographicCamera camera;
     int dropsGathered;
     long lowerbound = 5000000000L;
@@ -104,8 +104,8 @@ public class GameScreen implements Screen {
 
         // load the drop sound effect and include rain background music
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-        rainMusic.setLooping(true);
+        battleMusic = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
+        battleMusic.setLooping(true);
 
         // create camera and Sprites
         camera = new OrthographicCamera();
@@ -126,7 +126,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         // start playback of background music when screen is shown
-        rainMusic.play();
+        battleMusic.play();
     }
 
     @Override
@@ -227,7 +227,7 @@ public class GameScreen implements Screen {
         cowboyStillR.dispose();
 
         dropSound.dispose();
-        rainMusic.dispose();
+        battleMusic.dispose();
 
     }
 }
