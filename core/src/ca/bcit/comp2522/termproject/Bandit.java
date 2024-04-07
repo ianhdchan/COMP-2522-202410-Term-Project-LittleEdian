@@ -19,9 +19,9 @@ public class Bandit extends Enemy {
         Rectangle eachBandit = new Rectangle();
         eachBandit.x = xMovement;
         eachBandit.y = 10;
-        eachBandit.width = 30; // 10 pixels wide
-        eachBandit.height = 50; // 64 pixels height
-        enemy.add(eachBandit); // add the laserbeam into the array
+        eachBandit.width = 30; // 30 pixels wide
+        eachBandit.height = 50; // 50 pixels height
+        enemy.add(eachBandit); // add the bandit into the array
         lastSpawnTime = TimeUtils.nanoTime();
     }
 
