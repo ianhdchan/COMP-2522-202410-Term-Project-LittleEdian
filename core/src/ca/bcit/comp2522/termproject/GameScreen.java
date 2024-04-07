@@ -39,6 +39,7 @@ public class GameScreen implements Screen {
     Music rainMusic;
     OrthographicCamera camera;
     Rectangle cowboy;
+    Array<Rectangle> enemies;
     double lastSpawnTime;
     int dropsGathered;
     long lowerbound = 5000000000L;
@@ -52,28 +53,28 @@ public class GameScreen implements Screen {
         lifeTime = System.currentTimeMillis();
     }
 
-//    /** Tracks current frame of sprites **/
-//    private int currentFrame = 0;
-//    /** Checks if sprite is facing left **/
-//    boolean isFacingLeft = false;
-//
-//
-//    /** Determines isJumping state of character. */
-//    private boolean isJumping = false;
-//
-//    /** Determines isJumping state of character. */
-//    private boolean isFalling = false;
-//
-//    /** How fast the jump action will be. */
-//    private float jumpVelocity = 250;
+    /** Tracks current frame of sprites **/
+    private int currentFrame = 0;
+    /** Checks if sprite is facing left **/
+    boolean isFacingLeft = false;
+
+
+    /** Determines isJumping state of character. */
+    private boolean isJumping = false;
+
+    /** Determines isJumping state of character. */
+    private boolean isFalling = false;
+
+    /** How fast the jump action will be. */
+    private float jumpVelocity = 250;
 
     /** How fast the falling portion of the jump will be. */
     private float gravity = 30;
 
-
+    /** Max Jump Height. */
+    private float MAX_JUMP_HEIGHT = 200;
     Laser laser = new Laser(this);
     Bandit bandit = new Bandit(this);
-    Cowboy player = new Cowboy(this);
 
 
     public GameScreen(final COMP2522TermProject game) {
@@ -112,8 +113,13 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
 
-        // Create object (rectangle) to represent the cowboy
-        player.createCowboy();
+        // Create hitbox (rectangle) to represent the cowboy
+        cowboy = new Rectangle();
+        cowboy.x = 800 / 2 - 64 / 2; // This centers the bucket horizontally (x-axis)
+        cowboy.y = 20; // bottom
+
+        cowboy.width = 64; // 64 pixels
+        cowboy.height = 64; // 64 pixels
 
         // create object array (laser as an example) and spawn the first object
         laser.spawnEnemy();
@@ -162,12 +168,56 @@ public class GameScreen implements Screen {
 
 
         // Process user input
-        player.cowboyMovement();
 
+        // LEFT KEY PRESSED
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            updateSprite(runningLeftSprite);
+            cowboy.x -= 200 * Gdx.graphics.getDeltaTime();
+        // Right key pressed
+        } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            updateSprite(runningRightSprite);
+            cowboy.x += 200 * Gdx.graphics.getDeltaTime();
+        // Checks if facing left direction
+        } else {
+            Texture stillSprite = isFacingLeft ? cowboyStillL : cowboyStillR;
+            game.batch.draw(stillSprite, cowboy.x, cowboy.y);
+        }
+
+
+        // todo: ugly smelly code please fix
+        //  y
+        // JUMP LOGIC
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && !isJumping && !isFalling) {
+            isJumping = true;
+        }
+
+        if (isJumping) {
+            cowboy.y += jumpVelocity * Gdx.graphics.getDeltaTime();
+            if (cowboy.y >= MAX_JUMP_HEIGHT - 1) {
+                isJumping = false;
+                isFalling = true;
+            }
+        } else if (isFalling) {
+            cowboy.y -= jumpVelocity * Gdx.graphics.getDeltaTime();
+            if (cowboy.y <= 0) {
+                isJumping = false;
+                isFalling = false;
+            }
+        }
         game.batch.end();
 
-        // Check if player is within bounds
-        player.isWithinBounds();
+
+        if (cowboy.y < 0) {
+            cowboy.y  = 0;
+        }
+
+        // Ensure cowboy stays within screen bounds
+        if (cowboy.x < 0) {
+            cowboy.x = 0;
+        }
+        if (cowboy.x > 800 - 64) {
+            cowboy.x = 800 - 64;
+        }
 
         // Check if game needs to create new object (Raindrop)
         if (TimeUtils.nanoTime() - laser.lastSpawnTime > 1000000000) {
@@ -188,16 +238,14 @@ public class GameScreen implements Screen {
         bandit.removeEnemy();
 
 
-
-
     }
 
-//    private void updateSprite(Sprite[] runningSprite) {
-//        currentFrame = (currentFrame + 1) % runningSprite.length;
-//        runningSprite[currentFrame].setPosition(cowboy.x, cowboy.y);
-//        runningSprite[currentFrame].draw(game.batch);
-//        isFacingLeft = Gdx.input.isKeyPressed(Input.Keys.LEFT); // update facing direction
-//    }
+    private void updateSprite(Sprite[] runningSprite) {
+        currentFrame = (currentFrame + 1) % runningSprite.length;
+        runningSprite[currentFrame].setPosition(cowboy.x, cowboy.y);
+        runningSprite[currentFrame].draw(game.batch);
+        isFacingLeft = Gdx.input.isKeyPressed(Input.Keys.LEFT); // update facing direction
+    }
 
     @Override
     public void resize(int width, int height) {
