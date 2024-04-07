@@ -27,10 +27,36 @@ public class Cowboy {
     /** Max Jump Height. */
     private final float MAX_JUMP_HEIGHT = 200;
 
+    protected final Texture[] runningLeft = new Texture[3];
+    protected final Texture[] runningRight = new Texture[3];
+    protected final Sprite[] runningLeftSprite = new Sprite[3];
+    protected final Sprite[] runningRightSprite = new Sprite[3];
+    protected Texture cowboyStillL;
+    protected Texture cowboyStillR;
+
     public Cowboy(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
+
     }
 
+    void cowboyStillTexture() {
+        // load cowboy sprite images for running left, 64 x 64 pixels each
+        runningLeft[0] = new Texture(Gdx.files.internal("Cowboy_L1.png"));
+        runningLeft[1] = new Texture(Gdx.files.internal("Cowboy_L2.png"));
+        runningLeft[2] = new Texture(Gdx.files.internal("Cowboy_L3.png"));
+        for (int i = 0; i < 3; i++) {
+            runningLeftSprite[i] = new Sprite(runningLeft[i]);
+        }
+        // load cowboy sprite images for running right, 64 x 64 pixels each
+        runningRight[0] = new Texture(Gdx.files.internal("Cowboy_R1.png"));
+        runningRight[1] = new Texture(Gdx.files.internal("Cowboy_R2.png"));
+        runningRight[2] = new Texture(Gdx.files.internal("Cowboy_R3.png"));
+        for (int i = 0; i < 3; i++) {
+            runningRightSprite[i] = new Sprite(runningRight[i]);
+        }
+        cowboyStillL = new Texture(Gdx.files.internal("Cowboy_StillL.png"));
+        cowboyStillR = new Texture(Gdx.files.internal("Cowboy_StillR.png"));
+    }
 
 
     void createCowboy(){
@@ -44,15 +70,15 @@ public class Cowboy {
 
     public void cowboyMovement() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            updateCowboy(gameScreen.runningLeftSprite);
+            updateCowboy(runningLeftSprite);
             cowboy.x -= 200 * Gdx.graphics.getDeltaTime();
             // Right key pressed
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            updateCowboy(gameScreen.runningRightSprite);
+            updateCowboy(runningRightSprite);
             cowboy.x += 200 * Gdx.graphics.getDeltaTime();
             // Checks if facing left direction
         } else {
-            Texture stillSprite = isFacingLeft ? gameScreen.cowboyStillL : gameScreen.cowboyStillR;
+            Texture stillSprite = isFacingLeft ? cowboyStillL : cowboyStillR;
             gameScreen.game.batch.draw(stillSprite, cowboy.x, cowboy.y);
         }
 
