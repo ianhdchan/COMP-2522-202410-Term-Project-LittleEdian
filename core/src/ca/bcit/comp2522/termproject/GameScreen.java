@@ -21,7 +21,7 @@ public class GameScreen implements Screen {
     protected final Texture cowboyStillR;
     protected final Texture laserImage;
     protected final Texture bucketImage;
-    protected int dropsGathered;
+    protected int healthPoints = 3;
     private long timeDifference = 3000000000L;
     private float lifeTime;
     OrthographicCamera camera;
@@ -112,7 +112,7 @@ public class GameScreen implements Screen {
 
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
-        game.font.draw(game.batch, "Drops Collected: " + dropsGathered, 0, 600);
+        game.font.draw(game.batch, "Health Points: " + healthPoints, 10, 590);
 
         // Draw Lasers
         laser.drawEnemy();
