@@ -54,6 +54,5 @@ public class Bandit extends Enemy {
     @Override
     public void dispose() {
         ufoImage.dispose();
-
     }
 }

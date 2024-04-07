@@ -54,7 +54,6 @@ public class Laser extends Enemy {
     @Override
     public void dispose() {
         laserImage.dispose();
-
     }
 
 }
