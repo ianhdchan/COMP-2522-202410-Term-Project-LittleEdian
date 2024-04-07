@@ -14,16 +14,10 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameScreen implements Screen {
     protected final COMP2522TermProject game;
     protected final Texture laserImage;
-    protected int healthPoints = 0;
+    protected int healthPoints = 3;
     private long timeDifference = 3000000000L;
     private float lifeTime;
     OrthographicCamera camera;
-    Texture cowboyL1;
-    Texture cowboyL2;
-    Texture cowboyL3;
-    Texture cowboyR1;
-    Texture cowboyR2;
-    Texture cowboyR3;
     Texture background;
     Sound damageNoise;
     Music battleBGM;
@@ -131,6 +125,11 @@ public class GameScreen implements Screen {
         player.isWithinBounds();
 
         updateEnemy();
+
+        if (healthPoints <= 0) {
+            game.setScreen(new GameOverScreen(game));
+            dispose();
+        }
     }
 
     @Override
@@ -155,15 +154,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        background.dispose();
         laserImage.dispose();
-        cowboyL1.dispose();
-        cowboyL2.dispose();
-        cowboyL3.dispose();
-
-        cowboyR1.dispose();
-        cowboyR2.dispose();
-        cowboyR3.dispose();
-
         damageNoise.dispose();
         battleBGM.dispose();
     }
