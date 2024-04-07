@@ -124,6 +124,5 @@ public class Cowboy {
         if (cowboy.x > 800 - 64) {
             cowboy.x = 800 - 64;
         }
-
     }
 }
