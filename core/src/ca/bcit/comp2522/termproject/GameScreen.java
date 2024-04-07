@@ -14,7 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameScreen implements Screen {
     protected final COMP2522TermProject game;
     protected int oneSecond = 1000000000;
-    protected int healthPoints = 0;
+    protected int healthPoints = 3;
 
     OrthographicCamera camera;
     Texture background;
@@ -129,17 +129,17 @@ public class GameScreen implements Screen {
         // Remove bandit, any that hit the cowboy or goes off the screen
         bandit.removeEnemy();
         bandit2.removeEnemy();
-
     }
 
     @Override
     public void render(float delta) {
-
         draw();
-
         player.isWithinBounds();
-
         updateEnemy();
+        if (healthPoints <= 0) {
+            game.setScreen(new GameOverScreen(game));
+            dispose();
+        }
     }
 
     @Override
@@ -162,7 +162,6 @@ public class GameScreen implements Screen {
 
     }
 
-    // todo[EDRO]: dispose all instantiated objects for GameOverScreen
     @Override
     public void dispose() {
         damageNoise.dispose();

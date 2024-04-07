@@ -27,22 +27,20 @@ public class GameOverScreen implements Screen {
         game.font.draw(game.batch, "You ran out of health Points!", 100, 150);
         game.font.draw(game.batch, "Press the Space Bar to retry again.", 100, 100);
         game.batch.end();
-
     }
 
     @Override
     public void show() {
+    }
+
+    @Override
+    public void render(float delta) {
         draw();
 
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             game.setScreen(new GameScreen(game));
             dispose();
         }
-    }
-
-    @Override
-    public void render(float delta) {
-
     }
 
     @Override
