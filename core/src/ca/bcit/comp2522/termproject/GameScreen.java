@@ -100,6 +100,7 @@ public class GameScreen implements Screen {
         // load the drop sound effect and include rain background music
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
         battleBGM = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
+        battleBGM.setVolume(0.1F);
         battleBGM.setLooping(true);
 
         // create camera and Sprites
