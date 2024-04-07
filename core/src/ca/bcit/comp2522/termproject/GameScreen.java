@@ -159,5 +159,7 @@ public class GameScreen implements Screen {
     public void dispose() {
         damageNoise.dispose();
         battleBGM.dispose();
+        laser.dispose();
+        bandit.dispose();
     }
 }
