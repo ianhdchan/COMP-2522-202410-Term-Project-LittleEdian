@@ -106,7 +106,7 @@ public class GameScreen implements Screen {
 
         // load the drop sound effect and include rain background music
         dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+        rainMusic = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
         rainMusic.setLooping(true);
 
         // create camera and Sprites
@@ -163,8 +163,6 @@ public class GameScreen implements Screen {
         if (lifeTime == delay) {
             timeDifference = 1000000000L;
         }
-        System.out.println(lifeTime);
-
 
 
         // Process user input
@@ -185,7 +183,6 @@ public class GameScreen implements Screen {
 
 
         // todo: ugly smelly code please fix
-        //  y
         // JUMP LOGIC
         if (Gdx.input.isKeyPressed(Input.Keys.UP) && !isJumping && !isFalling) {
             isJumping = true;
@@ -228,8 +225,6 @@ public class GameScreen implements Screen {
 
         if (TimeUtils.nanoTime() - bandit.lastSpawnTime > randomNanoseconds) {
             bandit.spawnEnemy();
-            System.out.println("Random nanoseconds: " + randomNanoseconds);
-
         }
 
         // Remove laser, any that are beneath bottom edge of screen or that hit the cowboy.
