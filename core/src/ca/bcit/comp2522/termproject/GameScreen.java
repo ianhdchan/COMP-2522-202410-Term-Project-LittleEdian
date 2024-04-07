@@ -78,8 +78,8 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         float delay = 10000L;
         long lowerBound = 5000000000L;
-        long upperbound = 10000000000L;
-        long randomNanoseconds = timeDifference + MathUtils.random(upperbound - lowerBound);
+        long upperBound = 10000000000L;
+        long randomNanoseconds = timeDifference + MathUtils.random(upperBound - lowerBound);
 
         // Clear the screen with dark blue colour. Arguments to clear are red, green, blue, and alpha
         // component in the range [0, 1] of the colour to be used to clear the screen
@@ -93,7 +93,7 @@ public class GameScreen implements Screen {
 
         // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
-        game.batch.draw(background, 0, 0);
+        game.batch.draw(background, 0, 0, 800, 600);
         game.font.draw(game.batch, "Health Points: " + healthPoints, 0, 600);
 
         // Draw Lasers
