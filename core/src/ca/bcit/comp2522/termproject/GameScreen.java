@@ -60,13 +60,8 @@ public class GameScreen implements Screen {
 
         // create object array (bandit) and spawn the first object
         bandit.spawnEnemy();
-
-
     }
 
-    public void create() {
-        lifeTime = System.currentTimeMillis();
-    }
 
     @Override
     public void show() {
@@ -74,13 +69,8 @@ public class GameScreen implements Screen {
         battleBGM.play();
     }
 
-    @Override
-    public void render(float delta) {
-        float delay = 10000L;
-        long lowerBound = 5000000000L;
-        long upperBound = 10000000000L;
-        long randomNanoseconds = timeDifference + MathUtils.random(upperBound - lowerBound);
 
+    private void draw() {
         // Clear the screen with dark blue colour. Arguments to clear are red, green, blue, and alpha
         // component in the range [0, 1] of the colour to be used to clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
@@ -102,20 +92,16 @@ public class GameScreen implements Screen {
         // Draw bandit (left to right)
         bandit.drawEnemy();
 
-
-        lifeTime += Gdx.graphics.getDeltaTime();
-        if (lifeTime == delay) {
-            timeDifference = 1000000000L;
-        }
-
         // Process user input
         player.cowboyMovement();
 
         game.batch.end();
+    }
 
-        // checks if player is within screen boundaries
-        player.isWithinBounds();
-
+    private void updateEnemy() {
+        long lowerBound = 5000000000L;
+        long upperBound = 10000000000L;
+        long randomNanoseconds = timeDifference + MathUtils.random(upperBound - lowerBound);
         // Check if game needs to create new object (Raindrop)
         if (TimeUtils.nanoTime() - laser.lastSpawnTime > 1000000000) {
             laser.spawnEnemy();
@@ -124,10 +110,27 @@ public class GameScreen implements Screen {
         if (TimeUtils.nanoTime() - bandit.lastSpawnTime > randomNanoseconds) {
             bandit.spawnEnemy();
         }
+
         // Remove laser, any that are beneath bottom edge of screen or that hit the cowboy.
         laser.removeEnemy();
         // Remove bandit, any that hit the cowboy or goes off the screen
         bandit.removeEnemy();
+    }
+
+    @Override
+    public void render(float delta) {
+        float delay = 10000L;
+
+        draw();
+
+        lifeTime += Gdx.graphics.getDeltaTime();
+        if (lifeTime == delay) {
+            timeDifference = 1000000000L;
+        }
+
+        player.isWithinBounds();
+
+        updateEnemy();
     }
 
     @Override
