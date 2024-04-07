@@ -2,12 +2,13 @@ package ca.bcit.comp2522.termproject;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Bandit extends Enemy {
     protected Texture ufoImage;
+    public float speed = 150;
+    public int leftToRight = 0;
 
     public Bandit(final GameScreen gameScreen) {
         super(gameScreen);
@@ -16,7 +17,7 @@ public class Bandit extends Enemy {
     @Override
     void spawnEnemy() {
         Rectangle eachBandit = new Rectangle();
-        eachBandit.x = 0;
+        eachBandit.x = leftToRight;
         eachBandit.y = 10;
         eachBandit.width = 30; // 10 pixels wide
         eachBandit.height = 50; // 64 pixels height
@@ -29,7 +30,7 @@ public class Bandit extends Enemy {
         iterEnemy = enemy.iterator();
         while (iterEnemy.hasNext()) {
             Rectangle banditRun = iterEnemy.next();
-            banditRun.x += 150 * Gdx.graphics.getDeltaTime();
+            banditRun.x += speed * Gdx.graphics.getDeltaTime();
             if (banditRun.x + 64 < 0) {
                 iterEnemy.remove();
             }
@@ -40,7 +41,6 @@ public class Bandit extends Enemy {
                 iterEnemy.remove();
             }
         }
-
     }
 
     @Override
@@ -49,5 +49,11 @@ public class Bandit extends Enemy {
         for (Rectangle aBandit: enemy) {
             gameScreen.game.batch.draw(ufoImage, aBandit.x, aBandit.y);
         }
+    }
+
+    @Override
+    public void dispose() {
+        ufoImage.dispose();
+
     }
 }

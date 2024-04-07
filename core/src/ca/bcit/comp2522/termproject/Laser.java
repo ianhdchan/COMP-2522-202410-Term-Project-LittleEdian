@@ -1,11 +1,14 @@
 package ca.bcit.comp2522.termproject;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Laser extends Enemy {
+    protected Texture laserImage;
+
     public Laser(final GameScreen gameScreen) {
         super(gameScreen);
     }
@@ -42,9 +45,16 @@ public class Laser extends Enemy {
 
     @Override
     void drawEnemy() {
+        laserImage = new Texture(Gdx.files.internal("laser.png"));
         for (Rectangle laserDrop : enemy) {
-            gameScreen.game.batch.draw(gameScreen.laserImage, laserDrop.x, laserDrop.y);
+            gameScreen.game.batch.draw(laserImage, laserDrop.x, laserDrop.y);
         }
+    }
+
+    @Override
+    public void dispose() {
+        laserImage.dispose();
+
     }
 
 }
