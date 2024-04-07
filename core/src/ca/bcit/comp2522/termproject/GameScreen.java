@@ -18,12 +18,6 @@ public class GameScreen implements Screen {
     private long timeDifference = 3000000000L;
     private float lifeTime;
     OrthographicCamera camera;
-    Texture cowboyL1;
-    Texture cowboyL2;
-    Texture cowboyL3;
-    Texture cowboyR1;
-    Texture cowboyR2;
-    Texture cowboyR3;
     Sound damageNoise;
     Music battleBGM;
     Laser laser = new Laser(this);
@@ -38,27 +32,7 @@ public class GameScreen implements Screen {
         // load the images for droplet and bucket, 64 x 64 pixels each
         laserImage = new Texture(Gdx.files.internal("laser.png"));
 
-
         player.cowboyStillTexture();
-
-//        // load cowboy sprite images for running left, 64 x 64 pixels each
-//        runningLeft[0] = new Texture(Gdx.files.internal("Cowboy_L1.png"));
-//        runningLeft[1] = new Texture(Gdx.files.internal("Cowboy_L2.png"));
-//        runningLeft[2] = new Texture(Gdx.files.internal("Cowboy_L3.png"));
-//        for (int i = 0; i < 3; i++) {
-//            runningLeftSprite[i] = new Sprite(runningLeft[i]);
-//        }
-//        // load cowboy sprite images for running right, 64 x 64 pixels each
-//        runningRight[0] = new Texture(Gdx.files.internal("Cowboy_R1.png"));
-//        runningRight[1] = new Texture(Gdx.files.internal("Cowboy_R2.png"));
-//        runningRight[2] = new Texture(Gdx.files.internal("Cowboy_R3.png"));
-//        for (int i = 0; i < 3; i++) {
-//            runningRightSprite[i] = new Sprite(runningRight[i]);
-//        }
-//
-//        // load cowboy sprite images for no movement, 64 x 64 pixels each
-//        cowboyStillL = new Texture(Gdx.files.internal("Cowboy_StillL.png"));
-//        cowboyStillR = new Texture(Gdx.files.internal("Cowboy_StillR.png"));
 
         // load the drop sound effect and include rain background music
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
@@ -166,16 +140,10 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         laserImage.dispose();
-//        bucketImage.dispose();
-        cowboyL1.dispose();
-        cowboyL2.dispose();
-        cowboyL3.dispose();
+        bandit.ufoImage.dispose();
+        player.cowboyStillL.dispose();
+        player.cowboyStillR.dispose();
 
-        cowboyR1.dispose();
-        cowboyR2.dispose();
-        cowboyR3.dispose();
-//        cowboyStillL.dispose();
-//        cowboyStillR.dispose();
 
         damageNoise.dispose();
         battleBGM.dispose();
