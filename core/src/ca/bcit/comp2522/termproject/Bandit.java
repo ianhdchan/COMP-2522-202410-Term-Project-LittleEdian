@@ -1,3 +1,11 @@
+/**
+ * Bandit Class for the game.
+ *
+ * @author Edro Gonzales A01257468
+ * @author Ian Chan A00910012
+ * @version 2024
+ */
+
 package ca.bcit.comp2522.termproject;
 
 import com.badlogic.gdx.Gdx;
@@ -5,10 +13,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
+
 public class Bandit extends Enemy {
-    protected Texture ufoImage;
+    /** * Speed of the bandit. */
     public float speed = 150;
+    /** * Speed of the bandit. */
     public int xMovement = 0;
+    protected Texture ufoImage;
 
     public Bandit(final GameScreen gameScreen) {
         super(gameScreen);

@@ -15,7 +15,6 @@ public class Cowboy {
     /** Checks if sprite is facing left **/
     private boolean isFacingLeft = false;
 
-
     /** Determines isJumping state of character. */
     private boolean isJumping = false;
 

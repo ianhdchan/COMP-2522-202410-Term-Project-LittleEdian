@@ -94,7 +94,7 @@
         <module name="MethodName"/>
 
 
-		<!-- Checks that method parameter names conform to a specified pattern. -->
+        <!-- Checks that method parameter names conform to a specified pattern. -->
         <module name="ParameterName"/>
 
         <!-- Checks that static, non-final variable names conform to a specified pattern. -->
@@ -396,9 +396,9 @@
              twice, to the same value. Java initializes each instance variable to its
              default value (0 or null) before performing any initialization specified in
              the code. So there is a minor inefficiency. -->
-<!--        <module java101.name="ExplicitInitialization">-->
-<!--            <property java101.name="onlyObjectReferences" value="true"/>-->
-<!--        </module>-->
+        <!--        <module java101.name="ExplicitInitialization">-->
+        <!--            <property java101.name="onlyObjectReferences" value="true"/>-->
+        <!--        </module>-->
 
         <!-- Check that the default is after all the cases in a switch statement. -->
         <module name="DefaultComesLast"/>
@@ -421,13 +421,13 @@
         <property name="severity" value="ignore"/>
     </module>
 
-	<!-- Checks whether files end with a new line character - they should! -->
+    <!-- Checks whether files end with a new line character - they should! -->
     <module name="NewlineAtEndOfFile"/>
 
-	<!-- Ensures the correct translation of code by checking property files for consistency. -->
+    <!-- Ensures the correct translation of code by checking property files for consistency. -->
     <module name="Translation"/>
 
-	<!-- Checks for long source files. The limit is 2000 lines right now. -->
+    <!-- Checks for long source files. The limit is 2000 lines right now. -->
     <module name="FileLength"/>
 
     <!-- Checks for whitespace, i.a., tabs '\t' are forbidden! -->
