@@ -6,9 +6,25 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
+/**
+ * Represents the Laser class for the game.
+ * Laser objects serve as enemies in the game, which the player must avoid.
+ * Lasers spawn randomly at the top of the screen and move downwards.
+ * If the player collides with a laser, their health points decrease.
+ * Handles spawning, removing, and drawing laser enemies.
+ *
+ * @author Edro Gonzales
+ * @author Ian Chan
+ * @version 2024
+ */
 public class Laser extends Enemy {
     protected Texture laserImage;
 
+    /**
+     * Constructs a new Laser object.
+     *
+     * @param gameScreen The GameScreen instance.
+     */
     public Laser(final GameScreen gameScreen) {
         super(gameScreen);
     }
@@ -18,9 +34,9 @@ public class Laser extends Enemy {
         Rectangle laserBeam = new Rectangle();
         laserBeam.x = MathUtils.random(0, 800 - 15);
         laserBeam.y = 600;
-        laserBeam.width = 1; // 1 pixels wide
-        laserBeam.height = 40; // 64 pixels height
-        enemy.add(laserBeam); // add the laserbeam into the array
+        laserBeam.width = 1; // 1 pixel wide
+        laserBeam.height = 40; // 64 pixels high
+        enemy.add(laserBeam); // add the laser beam into the array
         lastSpawnTime = TimeUtils.nanoTime();
     }
 
@@ -35,12 +51,10 @@ public class Laser extends Enemy {
             }
             if (laserDrop.overlaps(gameScreen.player.cowboy)) {
                 gameScreen.healthPoints--;
-                gameScreen.damageNoise.setVolume(gameScreen.damageNoise.play(),
-                0.3F);
+                gameScreen.damageNoise.setVolume(gameScreen.damageNoise.play(), 0.3F);
                 iterEnemy.remove();
             }
         }
-
     }
 
     @Override
@@ -55,5 +69,4 @@ public class Laser extends Enemy {
     public void dispose() {
         laserImage.dispose();
     }
-
 }

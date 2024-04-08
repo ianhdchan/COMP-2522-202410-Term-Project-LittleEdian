@@ -10,7 +10,6 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
  * @author Ian Chan A00910012
  * @version 2024
  */
-
 public class DesktopLauncher {
 
 	/**

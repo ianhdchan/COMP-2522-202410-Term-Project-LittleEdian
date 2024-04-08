@@ -11,72 +11,96 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Represents the main gameplay screen of the game.
+ * This screen is where the game is played and managed, including player actions and enemy interactions.
+ * It handles rendering, user input, and enemy spawning.
+ *
+ * @author Edro Gonzales
+ * @author Ian Chan
+ * @version 2024
+ */
 public class GameScreen implements Screen {
+
+    /** The game instance. */
     protected final COMP2522TermProject game;
-    protected int oneSecond = 1000000000;
-    protected int healthPoints = 5;
 
+    /** The camera for rendering. */
     OrthographicCamera camera;
-    Texture background;
-    Sound damageNoise;
-    Music battleBGM;
-    Laser laser;
-    Bandit bandit;
-    Bandit bandit2;
 
+    /** The background texture. */
+    Texture background;
+
+    /** Sound effect for player damage. */
+    Sound damageNoise;
+
+    /** Background music for the game. */
+    Music battleBGM;
+
+    /** The cowboy player character. */
     Cowboy player = new Cowboy(this);
+
+    /** Object to manage difficulty changes during gameplay. */
     ChangeDifficulty changeDifficulty = new ChangeDifficulty(this);
 
+    /** Object representing laser enemies. */
+    Laser laser;
 
+    /** Object representing bandit enemies. */
+    Bandit bandit;
+
+    /** Another object representing bandit enemies. */
+    Bandit bandit2;
+
+    /** Nanoseconds in one second. */
+    protected int oneSecond = 1000000000;
+
+    /** Player's health points. */
+    protected int healthPoints = 5;
+
+    /**
+     * Constructs a new GameScreen.
+     *
+     * @param game The game instance.
+     */
     public GameScreen(final COMP2522TermProject game) {
         float MUSIC_VOLUME = 0.1F;
         this.game = game;
 
-        // load the images for cowboy, 64 x 64 pixels each
         player.cowboyStillTexture();
 
         background = new TextureRegion(new Texture("background.jpg"), 0, 0, 800, 600).getTexture();
 
-        // load the drop sound effect and include rain background music
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
         battleBGM = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
         battleBGM.setVolume(MUSIC_VOLUME);
         battleBGM.setLooping(true);
-        // create camera and Sprites
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
-        // Create object (rectangle) to represent the cowboy
         player.createCowboy();
 
         laser = new Laser(this);
         bandit = new Bandit(this);
         bandit2 = new Bandit(this);
 
-        // create object array (laser as an example) and spawn the first object
         laser.spawnEnemy();
-
     }
-
 
     @Override
     public void show() {
-        // start playback of background music when screen is shown
         battleBGM.play();
     }
 
-
+    /**
+     * Draws the game elements.
+     */
     private void draw() {
-        // Clear the screen with dark blue colour. Arguments to clear are red, green, blue, and alpha
-        // component in the range [0, 1] of the colour to be used to clear the screen
         ScreenUtils.clear(0, 0, 0.2f, 1);
 
-        // get camera to update its matrices
         camera.update();
-
-        // tell the SpriteBatch to render in the coordinate system specified by the camera
         game.batch.setProjectionMatrix(camera.combined);
 
-        // begin a new batch of objects, draw the bucket and all drops
         game.batch.begin();
         game.batch.draw(background, 0, 0, 800, 600);
         game.font.setColor(0,0,0,1);
@@ -85,26 +109,23 @@ public class GameScreen implements Screen {
         String formattedTime = String.format("%.2f", changeDifficulty.timeSeconds);
         game.font.draw(game.batch, "Time: " + formattedTime, 0, 580);
 
-        // Draw Lasers
         laser.drawEnemy();
 
-        // Draw bandit (left to right)
         bandit.drawEnemy();
-        // Draw bandit (right to left)
         bandit2.drawEnemy();
 
-
-        // Process user input
         player.cowboyMovement();
 
         game.batch.end();
     }
 
+    /**
+     * Updates enemy positions and game state.
+     */
     private void updateEnemy() {
         long lowerBound = 5000000000L;
         long upperBound = 7000000000L;
         long randomNanoseconds = ThreadLocalRandom.current().nextLong(lowerBound, upperBound);
-
 
         changeDifficulty.timer();
 
@@ -124,9 +145,7 @@ public class GameScreen implements Screen {
             }
         }
 
-        // Remove laser, any that are beneath bottom edge of screen or that hit the cowboy.
         laser.removeEnemy();
-        // Remove bandit, any that hit the cowboy or goes off the screen
         bandit.removeEnemy();
         bandit2.removeEnemy();
     }
@@ -144,22 +163,22 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        // Unused method, no implementation needed.
     }
 
     @Override
     public void pause() {
-
+        // Unused method, no implementation needed.
     }
 
     @Override
     public void resume() {
-
+        // Unused method, no implementation needed.
     }
 
     @Override
     public void hide() {
-
+        // Unused method, no implementation needed.
     }
 
     @Override
