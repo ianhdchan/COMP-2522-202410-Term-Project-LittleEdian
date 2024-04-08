@@ -16,10 +16,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class COMP2522TermProject extends Game {
 	/** The SpriteBatch to be used for rendering sprites. */
-	public SpriteBatch batch;
+	protected SpriteBatch batch;
 
 	/** The BitmapFont to be used for rendering text. */
-	public BitmapFont font;
+	protected BitmapFont font;
 
 	/**
 	 * Creates a new instance of COMP2522TermProject.
