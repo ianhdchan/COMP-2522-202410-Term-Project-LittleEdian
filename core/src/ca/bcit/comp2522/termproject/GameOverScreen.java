@@ -30,9 +30,11 @@ public class GameOverScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        game.font.setColor(0,0,0,1);
         game.batch.draw(gameOver, 0, 0, 800, 600);
-        game.font.draw(game.batch, "You ran out of health Points!", 100, 150);
-        game.font.draw(game.batch, "Press the Space Bar to retry again.", 100, 100);
+        game.font.draw(game.batch, "GAME OVER!", 360, 500);
+        game.font.draw(game.batch, "You ran out of health Points!", 90, 125);
+        game.font.draw(game.batch, "Press the Space Bar to retry again.", 90, 90);
         game.font.setColor(255,255,255,1);
         game.batch.end();
     }
