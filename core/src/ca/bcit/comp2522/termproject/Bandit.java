@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.TimeUtils;
  * @version 2024
  */
 public class Bandit extends Enemy {
+    /** Speed of the bandit. */
+    protected int speed;
     /** X Movement of the Bandit. */
     protected int xMovement = 0;
     /** Image of an enemy. */
@@ -53,7 +55,6 @@ public class Bandit extends Enemy {
      */
     @Override
     void removeEnemy() {
-        final int speed = 150;
         final int size = 64;
         final float volume = 0.3F;
         iterEnemy = enemy.iterator();
@@ -69,6 +70,14 @@ public class Bandit extends Enemy {
                 iterEnemy.remove();
             }
         }
+    }
+
+    /**
+     * Set the speed of the bandit.
+     * @param speed Speed as an int.
+     */
+    public void setSpeed(final int speed) {
+        this.speed = speed;
     }
 
     /**
