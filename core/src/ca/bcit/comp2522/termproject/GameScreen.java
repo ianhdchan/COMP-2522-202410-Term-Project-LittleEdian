@@ -55,9 +55,6 @@ public class GameScreen implements Screen {
         // create object array (laser as an example) and spawn the first object
         laser.spawnEnemy();
 
-        // create object array (bandit) and spawn the first object
-        bandit.spawnEnemy();
-        bandit2.spawnEnemy();
     }
 
 
