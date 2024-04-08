@@ -57,7 +57,7 @@ public class ChangeDifficulty {
                 gameScreen.oneSecond = oneSecondHigh;
             } else if (timeSeconds > thirtySeconds) {
                 gameScreen.bandit2.xMovement = banditXMovement;
-                gameScreen.bandit2.speed = banditSpeed;
+                gameScreen.bandit2.setSpeed(banditSpeed);
             } else if (timeSeconds > tenSeconds) {
                 gameScreen.oneSecond = oneSecondHigh;
             }
