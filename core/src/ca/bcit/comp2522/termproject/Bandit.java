@@ -26,7 +26,7 @@ public class Bandit extends Enemy {
      * Constructs a new Bandit.
      *
      * @param gameScreen The GameScreen instance.
-     * @param texture Texture images.
+     * @param texture The Texture images.
      */
     public Bandit(final GameScreen gameScreen, final Texture texture) {
         super(gameScreen);
