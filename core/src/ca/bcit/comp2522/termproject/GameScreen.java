@@ -130,6 +130,8 @@ public class GameScreen implements Screen {
         long lowerBound = 5000000000L;
         long upperBound = 7000000000L;
         long randomNanoseconds = ThreadLocalRandom.current().nextLong(lowerBound, upperBound);
+        final int initialSpeed = 150;
+        bandit.setSpeed(initialSpeed);
 
         changeDifficulty.timer();
 
