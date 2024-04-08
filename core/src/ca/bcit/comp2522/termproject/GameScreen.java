@@ -58,6 +58,9 @@ public class GameScreen implements Screen {
     /** Player's health points. */
     protected int healthPoints = 5;
 
+    public static final int SCREEN_X = 800;
+    public static final int SCREEN_Y = 600;
+
     /**
      * Constructs a new GameScreen.
      *
@@ -69,7 +72,7 @@ public class GameScreen implements Screen {
 
         player.cowboyStillTexture();
 
-        background = new TextureRegion(new Texture("background.jpg"), 0, 0, 800, 600).getTexture();
+        background = new TextureRegion(new Texture("background.jpg"), 0, 0, SCREEN_X, SCREEN_Y).getTexture();
 
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
         battleBGM = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
