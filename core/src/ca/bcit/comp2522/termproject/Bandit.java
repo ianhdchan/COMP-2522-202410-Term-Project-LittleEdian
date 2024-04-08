@@ -27,8 +27,9 @@ public class Bandit extends Enemy {
      *
      * @param gameScreen The GameScreen instance.
      */
-    public Bandit(final GameScreen gameScreen) {
+    public Bandit(final GameScreen gameScreen, Texture texture) {
         super(gameScreen);
+        this.ufoImage = texture;
     }
 
     /**
@@ -70,7 +71,6 @@ public class Bandit extends Enemy {
      */
     @Override
     void drawEnemy() {
-        ufoImage = new Texture(Gdx.files.internal("ufo_sprite.png"));
         for (Rectangle aBandit: enemy) {
             gameScreen.game.batch.draw(ufoImage, aBandit.x, aBandit.y);
         }
@@ -81,6 +81,9 @@ public class Bandit extends Enemy {
      */
     @Override
     public void dispose() {
-        ufoImage.dispose();
+        if (ufoImage != null) {
+            ufoImage.dispose();
+            ufoImage = null;
+        }
     }
 }

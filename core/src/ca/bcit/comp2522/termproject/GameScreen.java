@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameScreen implements Screen {
 
     /** The game instance. */
-    protected final COMP2522TermProject game;
+    protected COMP2522TermProject game;
 
     /** The camera for rendering. */
     OrthographicCamera camera;
@@ -80,9 +80,11 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, 800, 600);
         player.createCowboy();
 
+        // Inside GameScreen or where you handle asset loading
+        Texture banditTexture = new Texture(Gdx.files.internal("ufo_sprite.png"));
         laser = new Laser(this);
-        bandit = new Bandit(this);
-        bandit2 = new Bandit(this);
+        bandit = new Bandit(this, banditTexture);
+        bandit2 = new Bandit(this, banditTexture);
 
         laser.spawnEnemy();
     }
@@ -148,6 +150,15 @@ public class GameScreen implements Screen {
         laser.removeEnemy();
         bandit.removeEnemy();
         bandit2.removeEnemy();
+    }
+
+    /**
+     * Gets the game state.
+     *
+     * @return The game state.
+     */
+    COMP2522TermProject getGame() {
+        return game;
     }
 
     @Override
