@@ -57,6 +57,7 @@ public class GameOverScreen implements Screen {
         game.font.draw(game.batch, "GAME OVER!", 360, 500);
         game.font.draw(game.batch, "You ran out of health Points!", 90, 125);
         game.font.draw(game.batch, "Press the Space Bar to retry again.", 90, 90);
+        game.font.draw(game.batch, "Press the Escape button to close the game.", 90, 55);
         game.font.setColor(255,255,255,1);
         game.batch.end();
     }
@@ -72,6 +73,8 @@ public class GameOverScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             game.setScreen(new GameScreen(game));
             dispose();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            Gdx.app.exit();
         }
     }
 
