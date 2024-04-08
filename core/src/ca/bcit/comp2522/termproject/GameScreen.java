@@ -82,7 +82,9 @@ public class GameScreen implements Screen {
 
         // Inside GameScreen or where you handle asset loading
         Texture banditTexture = new Texture(Gdx.files.internal("ufo_sprite.png"));
-        laser = new Laser(this);
+        Texture laserTexture = new Texture(Gdx.files.internal("laser.png"));
+
+        laser = new Laser(this, laserTexture);
         bandit = new Bandit(this, banditTexture);
         bandit2 = new Bandit(this, banditTexture);
 

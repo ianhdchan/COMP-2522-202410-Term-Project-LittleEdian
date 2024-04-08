@@ -25,8 +25,9 @@ public class Laser extends Enemy {
      *
      * @param gameScreen The GameScreen instance.
      */
-    public Laser(final GameScreen gameScreen) {
+    public Laser(final GameScreen gameScreen, Texture texture) {
         super(gameScreen);
+        this.laserImage = texture;
     }
 
     @Override
@@ -59,7 +60,6 @@ public class Laser extends Enemy {
 
     @Override
     void drawEnemy() {
-        laserImage = new Texture(Gdx.files.internal("laser.png"));
         for (Rectangle laserDrop : enemy) {
             gameScreen.game.batch.draw(laserImage, laserDrop.x, laserDrop.y);
         }
@@ -67,6 +67,9 @@ public class Laser extends Enemy {
 
     @Override
     public void dispose() {
-        laserImage.dispose();
+        if (laserImage != null) {
+            laserImage.dispose();
+            laserImage = null;
+        }
     }
 }
