@@ -14,15 +14,15 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameScreen implements Screen {
     protected final COMP2522TermProject game;
     protected int oneSecond = 1000000000;
-    protected int healthPoints = 3;
+    protected int healthPoints = 5;
 
     OrthographicCamera camera;
     Texture background;
     Sound damageNoise;
     Music battleBGM;
-    Laser laser = new Laser(this);
-    Bandit bandit = new Bandit(this);
-    Bandit bandit2 = new Bandit(this);
+    Laser laser;
+    Bandit bandit;
+    Bandit bandit2;
 
     Cowboy player = new Cowboy(this);
     ChangeDifficulty changeDifficulty = new ChangeDifficulty(this);
@@ -48,13 +48,16 @@ public class GameScreen implements Screen {
         // Create object (rectangle) to represent the cowboy
         player.createCowboy();
 
+        laser = new Laser(this);
+        bandit = new Bandit(this);
+        bandit2 = new Bandit(this);
+
         // create object array (laser as an example) and spawn the first object
         laser.spawnEnemy();
 
         // create object array (bandit) and spawn the first object
         bandit.spawnEnemy();
         bandit2.spawnEnemy();
-
     }
 
 
