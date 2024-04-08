@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class MainMenuScreen implements Screen {
 
     final COMP2522TermProject game;
-
+    private final Texture mainMenu;
     OrthographicCamera camera;
 
     public MainMenuScreen(COMP2522TermProject game) {
@@ -17,6 +19,8 @@ public class MainMenuScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
+        mainMenu = new TextureRegion(new Texture("mainmenu.jpg"), 0, 0, 800, 600).getTexture();
+
     }
 
     @Override
@@ -32,6 +36,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        game.batch.draw(mainMenu, 0, 0, 800, 600);
         game.font.draw(game.batch, "Welcome to Little Cowboy Edian baby!", 100, 150);
         game.font.draw(game.batch, "Press the Space Bar to begin.", 100, 100);
         game.batch.end();

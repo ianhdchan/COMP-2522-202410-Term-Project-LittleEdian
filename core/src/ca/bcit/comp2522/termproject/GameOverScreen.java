@@ -4,10 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameOverScreen implements Screen {
     final COMP2522TermProject game;
+    private final Texture gameOver;
+
     OrthographicCamera camera;
 
     public GameOverScreen(COMP2522TermProject game) {
@@ -15,6 +19,8 @@ public class GameOverScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
+        gameOver = new TextureRegion(new Texture("gameover.jpg"), 0, 0, 800, 600).getTexture();
+
     }
 
     public void draw() {
@@ -24,6 +30,7 @@ public class GameOverScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        game.batch.draw(gameOver, 0, 0, 800, 600);
         game.font.draw(game.batch, "You ran out of health Points!", 100, 150);
         game.font.draw(game.batch, "Press the Space Bar to retry again.", 100, 100);
         game.font.setColor(255,255,255,1);
