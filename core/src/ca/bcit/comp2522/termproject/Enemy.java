@@ -11,7 +11,7 @@ import java.util.Iterator;
  * @author Ian Chan A00910012
  * @version 2024
  */
-abstract public class Enemy {
+public abstract class Enemy {
     /** The GameScreen instance associated with this enemy. */
     protected final GameScreen gameScreen;
 
