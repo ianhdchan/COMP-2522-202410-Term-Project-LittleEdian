@@ -33,22 +33,36 @@ public class ChangeDifficulty {
      * Adjusts parameters such as enemy spawn rate and behavior as the game progresses.
      */
     protected void timer() {
-        float period = 1f;
-        timeSeconds += Gdx.graphics.getDeltaTime();
+        final float period = 1f;
+        final float seventySeconds = 70f;
+        final float sixtySeconds = 60f;
+        final float fortyFiveSeconds = 45f;
+        final float thirtySeconds = 30f;
+        final float tenSeconds = 10f;
+        final int oneSecondLow = 10_000_000;
+        final int oneSecondMedium = 100_000_000;
+        final int oneSecondHigh = 500_000_000;
+        final int banditXMovement = 800;
+        final int banditSpeed = -150;
+
+        float deltaTime = Gdx.graphics.getDeltaTime();
+        timeSeconds += deltaTime;
 
         if (timeSeconds > period) {
-            if (timeSeconds > 70) {
-                gameScreen.oneSecond = 10000000;
-            } else if (timeSeconds > 60) {
-                gameScreen.oneSecond = 100000000;
-            } else if (timeSeconds > 45) {
-                gameScreen.oneSecond = 500000000;
-            } else if (timeSeconds > 30) {
-                gameScreen.bandit2.xMovement = 800;
-                gameScreen.bandit2.speed = -150;
-            } else if (timeSeconds > 10) {
-                gameScreen.oneSecond = 800000000;
+            if (timeSeconds > seventySeconds) {
+                gameScreen.oneSecond = oneSecondLow;
+            } else if (timeSeconds > sixtySeconds) {
+                gameScreen.oneSecond = oneSecondMedium;
+            } else if (timeSeconds > fortyFiveSeconds) {
+                gameScreen.oneSecond = oneSecondHigh;
+            } else if (timeSeconds > thirtySeconds) {
+                gameScreen.bandit2.xMovement = banditXMovement;
+                gameScreen.bandit2.speed = banditSpeed;
+            } else if (timeSeconds > tenSeconds) {
+                gameScreen.oneSecond = oneSecondHigh;
             }
         }
     }
+
+
 }
