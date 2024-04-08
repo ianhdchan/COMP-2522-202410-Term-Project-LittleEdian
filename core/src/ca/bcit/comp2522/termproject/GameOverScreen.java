@@ -26,6 +26,7 @@ public class GameOverScreen implements Screen {
         game.batch.begin();
         game.font.draw(game.batch, "You ran out of health Points!", 100, 150);
         game.font.draw(game.batch, "Press the Space Bar to retry again.", 100, 100);
+        game.font.setColor(255,255,255,1);
         game.batch.end();
     }
 
