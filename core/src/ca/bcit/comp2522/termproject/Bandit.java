@@ -15,19 +15,18 @@ import com.badlogic.gdx.utils.TimeUtils;
  * @version 2024
  */
 public class Bandit extends Enemy {
-
-    /** Speed of the bandit. */
-    public float speed = 150;
     /** X Movement of the Bandit. */
-    public int xMovement = 0;
+    protected int xMovement = 0;
+    /** Image of an enemy. */
     protected Texture ufoImage;
 
     /**
      * Constructs a new Bandit.
      *
      * @param gameScreen The GameScreen instance.
+     * @param texture Texture images.
      */
-    public Bandit(final GameScreen gameScreen, Texture texture) {
+    public Bandit(final GameScreen gameScreen, final Texture texture) {
         super(gameScreen);
         this.ufoImage = texture;
     }
@@ -37,11 +36,14 @@ public class Bandit extends Enemy {
      */
     @Override
     void spawnEnemy() {
+        final int yAxis = 10;
+        final int width = 30;
+        final int height = 50;
         Rectangle eachBandit = new Rectangle();
         eachBandit.x = xMovement;
-        eachBandit.y = 10;
-        eachBandit.width = 30; // 30 pixels wide
-        eachBandit.height = 50; // 50 pixels height
+        eachBandit.y = yAxis;
+        eachBandit.width = width; // 30 pixels wide
+        eachBandit.height = height; // 50 pixels height
         enemy.add(eachBandit); // add the bandit into the array
         lastSpawnTime = TimeUtils.nanoTime();
     }
@@ -51,16 +53,19 @@ public class Bandit extends Enemy {
      */
     @Override
     void removeEnemy() {
+        final int speed = 150;
+        final int size = 64;
+        final float volume = 0.3F;
         iterEnemy = enemy.iterator();
         while (iterEnemy.hasNext()) {
             Rectangle banditRun = iterEnemy.next();
             banditRun.x += speed * Gdx.graphics.getDeltaTime();
-            if (banditRun.x + 64 < 0) {
+            if (banditRun.x + size < 0) {
                 iterEnemy.remove();
             }
             if (banditRun.overlaps(gameScreen.player.cowboy)) {
                 gameScreen.healthPoints--;
-                gameScreen.damageNoise.setVolume(gameScreen.damageNoise.play(), 0.3F);
+                gameScreen.damageNoise.setVolume(gameScreen.damageNoise.play(), volume);
                 iterEnemy.remove();
             }
         }
