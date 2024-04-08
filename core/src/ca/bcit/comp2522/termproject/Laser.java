@@ -16,7 +16,7 @@ public class Laser extends Enemy {
     @Override
     void spawnEnemy() {
         Rectangle laserBeam = new Rectangle();
-        laserBeam.x = MathUtils.random(0, 800 - 64);
+        laserBeam.x = MathUtils.random(0, 800 - 15);
         laserBeam.y = 600;
         laserBeam.width = 1; // 1 pixels wide
         laserBeam.height = 40; // 64 pixels height
