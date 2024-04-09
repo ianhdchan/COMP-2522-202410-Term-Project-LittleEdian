@@ -21,47 +21,50 @@ import java.util.concurrent.ThreadLocalRandom;
  * @version 2024
  */
 public class GameScreen implements Screen {
+    /** The max screen width. */
+    public static final int SCREEN_X = 800;
+
+    /** The max screen height. */
+    public static final int SCREEN_Y = 600;
 
     /** The game instance. */
     protected COMP2522TermProject game;
 
-    /** The camera for rendering. */
-    OrthographicCamera camera;
-
-    /** The background texture. */
-    Texture background;
-
     /** Sound effect for player damage. */
-    Sound damageNoise;
-
-    /** Background music for the game. */
-    Music battleBGM;
+    protected final Sound damageNoise;
 
     /** The cowboy player character. */
-    Cowboy player = new Cowboy(this);
+    protected Cowboy player = new Cowboy(this);
 
     /** Object to manage difficulty changes during gameplay. */
-    ChangeDifficulty changeDifficulty = new ChangeDifficulty(this);
-
-    /** Object representing laser enemies. */
-    Laser laser;
-
-    /** Object representing bandit enemies. */
-    Bandit bandit;
+    protected ChangeDifficulty changeDifficulty = new ChangeDifficulty(this);
 
     /** Another object representing bandit enemies. */
-    Bandit bandit2;
+    protected Bandit bandit2;
 
     /** Nanoseconds in one second. */
     protected int oneSecond = 1000000000;
 
     /** Player's health points. */
     protected int healthPoints = 5;
+
+    /** Formatted Time. */
     protected String formattedTime;
 
+    /** The camera for rendering. */
+    private final OrthographicCamera camera;
 
-    public static final int SCREEN_X = 800;
-    public static final int SCREEN_Y = 600;
+    /** The background texture. */
+    private final Texture background;
+
+    /** Background music for the game. */
+    private final Music battleBGM;
+
+    /** Object representing laser enemies. */
+    private final Laser laser;
+
+    /** Object representing bandit enemies. */
+    private final Bandit bandit;
 
     /**
      * Constructs a new GameScreen.
