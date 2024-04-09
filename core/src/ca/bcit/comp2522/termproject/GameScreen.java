@@ -57,6 +57,8 @@ public class GameScreen implements Screen {
 
     /** Player's health points. */
     protected int healthPoints = 5;
+    protected String formattedTime;
+
 
     public static final int SCREEN_X = 800;
     public static final int SCREEN_Y = 600;
@@ -113,7 +115,7 @@ public class GameScreen implements Screen {
         game.font.setColor(0,0,0,1);
         game.font.draw(game.batch, "Health Points: " + healthPoints, 0, 600);
 
-        String formattedTime = String.format("%.2f", changeDifficulty.timeSeconds);
+        formattedTime = String.format("%.2f", changeDifficulty.timeSeconds);
         game.font.draw(game.batch, "Time: " + formattedTime, 0, 580);
 
         laser.drawEnemy();
@@ -174,7 +176,7 @@ public class GameScreen implements Screen {
         player.isWithinBounds();
         updateEnemy();
         if (healthPoints <= 0) {
-            game.setScreen(new GameOverScreen(game));
+            game.setScreen(new GameOverScreen(game, this));
             dispose();
         }
     }
