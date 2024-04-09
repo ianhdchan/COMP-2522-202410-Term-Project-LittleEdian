@@ -39,6 +39,9 @@ public class GameScreen implements Screen {
     /** Object to manage difficulty changes during gameplay. */
     protected ChangeDifficulty changeDifficulty = new ChangeDifficulty(this);
 
+    /** Object representing bandit enemies. */
+    protected final Bandit bandit;
+
     /** Another object representing bandit enemies. */
     protected Bandit bandit2;
 
@@ -62,9 +65,6 @@ public class GameScreen implements Screen {
 
     /** Object representing laser enemies. */
     private final Laser laser;
-
-    /** Object representing bandit enemies. */
-    private final Bandit bandit;
 
     /**
      * Constructs a new GameScreen.
