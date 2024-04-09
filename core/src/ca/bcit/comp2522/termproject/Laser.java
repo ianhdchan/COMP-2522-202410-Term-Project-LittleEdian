@@ -54,8 +54,11 @@ public class Laser extends Enemy {
         lastSpawnTime = TimeUtils.nanoTime();
     }
 
+    /**
+     * Removes laser from enemy array.
+     */
     @Override
-    void removeEnemy() {
+    public void removeEnemy() {
         final int size = 64;
         final int dropRate = 200;
         final float volume = 0.3F;
@@ -74,8 +77,11 @@ public class Laser extends Enemy {
         }
     }
 
+    /**
+     * Draw and initialize enemy.
+     */
     @Override
-    void drawEnemy() {
+    public void drawEnemy() {
         for (Rectangle laserDrop : enemy) {
             gameScreen.game.batch.draw(laserImage, laserDrop.x, laserDrop.y);
         }
