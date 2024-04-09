@@ -22,6 +22,7 @@ public class GameOverScreen implements Screen {
 
     /** The game instance. */
     final COMP2522TermProject game;
+    final GameScreen gameScreen;
 
     /** The texture for the game over screen. */
     private final Texture gameOver;
@@ -34,8 +35,9 @@ public class GameOverScreen implements Screen {
      *
      * @param game The game instance.
      */
-    public GameOverScreen(COMP2522TermProject game) {
+    public GameOverScreen(COMP2522TermProject game, GameScreen gameScreen) {
         this.game = game;
+        this.gameScreen = gameScreen;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 600);
@@ -55,6 +57,7 @@ public class GameOverScreen implements Screen {
         game.font.setColor(0,0,0,1);
         game.batch.draw(gameOver, 0, 0, 800, 600);
         game.font.draw(game.batch, "GAME OVER!", 360, 500);
+        game.font.draw(game.batch, "Score (seconds): " + gameScreen.changeDifficulty.getTime(), 335, 480);
         game.font.draw(game.batch, "You ran out of health Points!", 90, 125);
         game.font.draw(game.batch, "Press the Space Bar to retry again.", 90, 90);
         game.font.draw(game.batch, "Press the Escape button to close the game.", 90, 55);
