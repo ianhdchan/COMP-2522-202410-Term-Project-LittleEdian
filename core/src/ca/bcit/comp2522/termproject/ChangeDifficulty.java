@@ -32,7 +32,7 @@ public class ChangeDifficulty {
      * Updates game difficulty based on elapsed time.
      * Adjusts parameters such as enemy spawn rate and behavior as the game progresses.
      */
-    protected void timer() {
+    protected float timer() {
         final float period = 1f;
         final float seventySeconds = 70f;
         final float sixtySeconds = 60f;
@@ -62,7 +62,14 @@ public class ChangeDifficulty {
                 gameScreen.oneSecond = oneSecondHigh;
             }
         }
+        return timeSeconds;
     }
 
+    /**
+     * @return
+     */
+    public String getTime() {
+        return String.format("%.2f", timeSeconds);
+    }
 
 }
