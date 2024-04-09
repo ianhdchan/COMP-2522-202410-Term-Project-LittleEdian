@@ -20,13 +20,13 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class MainMenuScreen implements Screen {
 
     /** The game instance. */
-    final COMP2522TermProject game;
+    protected final COMP2522TermProject game;
 
     /** The texture for the main menu background. */
     private final Texture mainMenu;
 
     /** The camera for rendering. */
-    OrthographicCamera camera;
+    private final OrthographicCamera camera;
 
     /**
      * Constructs a new MainMenuScreen.
