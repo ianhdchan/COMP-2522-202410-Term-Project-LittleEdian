@@ -37,8 +37,11 @@ public class Laser extends Enemy {
         this.laserImage = texture;
     }
 
+    /**
+     * Spawns laser beam into enemy array.
+     */
     @Override
-    void spawnEnemy() {
+    public void spawnEnemy() {
         final int width = 1;
         final int height = 40;
         final int size = 15;
