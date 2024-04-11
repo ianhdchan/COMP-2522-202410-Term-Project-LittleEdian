@@ -22,46 +22,66 @@ public class GameOverScreen implements Screen {
 
     /** The game instance. */
     final COMP2522TermProject game;
+    /** The game screen instance. */
     final GameScreen gameScreen;
 
     /** The texture for the game over screen. */
     private final Texture gameOver;
 
     /** The camera for rendering. */
-    OrthographicCamera camera;
+    private final OrthographicCamera camera;
 
     /**
      * Constructs a new GameOverScreen.
      *
      * @param game The game instance.
+     * @param gameScreen The game screen instance.
      */
-    public GameOverScreen(COMP2522TermProject game, GameScreen gameScreen) {
+    public GameOverScreen(final COMP2522TermProject game, final GameScreen gameScreen) {
         this.game = game;
         this.gameScreen = gameScreen;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 600);
-        gameOver = new TextureRegion(new Texture("gameover.jpg"), 0, 0, 800, 600).getTexture();
+        camera.setToOrtho(false, GameScreen.SCREEN_X, GameScreen.SCREEN_Y);
+        gameOver = new TextureRegion(new Texture("gameover.jpg"), 0, 0, GameScreen.SCREEN_X,
+                GameScreen.SCREEN_Y).getTexture();
     }
 
     /**
      * Draws the game over screen elements.
      */
     public void draw() {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
+// Constants for screen positions
+        final int gameOverX = 360;
+        final int gameOverY = 500;
+        final int scoreX = 335;
+        final int scoreY = 480;
+        final int healthPointsX = 90;
+        final int healthPointsY = 125;
+        final int retryX = 90;
+        final int retryY = 90;
+        final int closeGameX = 90;
+        final int closeGameY = 55;
+        final int redAmount = 255;
+        final int greenAmount = 255;
+        final int blueAmount = 255;
+        final int alphaAmount = 1;
+
+        ScreenUtils.clear(MainMenuScreen.CLEARRED, MainMenuScreen.CLEARGREEN, MainMenuScreen.CLEARBLUE,
+                MainMenuScreen.CLEARALPHA);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.setColor(0,0,0,1);
-        game.batch.draw(gameOver, 0, 0, 800, 600);
-        game.font.draw(game.batch, "GAME OVER!", 360, 500);
-        game.font.draw(game.batch, "Score (seconds): " + gameScreen.changeDifficulty.getTime(), 335, 480);
-        game.font.draw(game.batch, "You ran out of health Points!", 90, 125);
-        game.font.draw(game.batch, "Press the Space Bar to retry again.", 90, 90);
-        game.font.draw(game.batch, "Press the Escape button to close the game.", 90, 55);
-        game.font.setColor(255,255,255,1);
+        game.font.setColor(0, 0, 0, 1);
+        game.batch.draw(gameOver, 0, 0, GameScreen.SCREEN_X, GameScreen.SCREEN_Y);
+        game.font.draw(game.batch, "GAME OVER!", gameOverX, gameOverY);
+        game.font.draw(game.batch, "Score (seconds): " + gameScreen.changeDifficulty.getTime(), scoreX, scoreY);
+        game.font.draw(game.batch, "You ran out of health Points!", healthPointsX, healthPointsY);
+        game.font.draw(game.batch, "Press the Space Bar to retry again.", retryX, retryY);
+        game.font.draw(game.batch, "Press the Escape button to close the game.", closeGameX, closeGameY);
+        game.font.setColor(redAmount, greenAmount, blueAmount, alphaAmount);
         game.batch.end();
     }
 
@@ -70,8 +90,13 @@ public class GameOverScreen implements Screen {
         // Unused method, no implementation needed.
     }
 
+    /**
+     * Renders the game over screen.
+     *
+     * @param delta The time since the last frame.
+     */
     @Override
-    public void render(float delta) {
+    public void render(final float delta) {
         draw();
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             game.setScreen(new GameScreen(game));
@@ -82,7 +107,7 @@ public class GameOverScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(final int width, final int height) {
         // Unused method, no implementation needed.
     }
 

@@ -22,6 +22,17 @@ public class MainMenuScreen implements Screen {
     public static final int SCREEN_X = 800;
     /** The max screen height. */
     public static final int SCREEN_Y = 600;
+    /** The red component of the clear color, in the range 0-1. */
+    public static final float CLEARRED = 0;
+
+    /** The green component of the clear color, in the range 0-1. */
+    public static final float CLEARGREEN = 0;
+
+    /** The blue component of the clear color, in the range 0-1. */
+    public static final float CLEARBLUE = 0.2f;
+
+    /** The alpha (transparency) component of the clear color, in the range 0-1. */
+    public static final float CLEARALPHA = 1;
     /** The game instance. */
     protected final COMP2522TermProject game;
 
@@ -56,12 +67,9 @@ public class MainMenuScreen implements Screen {
      */
     @Override
     public void render(final float delta) {
-        final float clearRed = 0;
-        final float clearGreen = 0;
-        final float clearBlue = 0.2f;
-        final float clearAlpha = 1;
 
-        ScreenUtils.clear(clearRed, clearGreen, clearBlue, clearAlpha);
+
+        ScreenUtils.clear(CLEARRED, CLEARGREEN, CLEARBLUE, CLEARALPHA);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
