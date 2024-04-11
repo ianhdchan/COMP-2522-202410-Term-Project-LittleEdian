@@ -38,7 +38,7 @@ public class Bandit extends Enemy {
      */
     @Override
     void spawnEnemy() {
-        final int yAxis = 10;
+        final int yAxis = 0;
         final int width = 30;
         final int height = 50;
         Rectangle eachBandit = new Rectangle();
