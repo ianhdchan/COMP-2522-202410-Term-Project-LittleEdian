@@ -55,13 +55,13 @@ public class BanditTest {
     public void testDrawEnemy() {
         bandit.spawnEnemy();
         bandit.drawEnemy();
-        assertNotNull(bandit.ufoImage, "UFO image should be initialized");
+        assertNotNull(bandit.banditImage, "UFO image should be initialized");
     }
 
     @Test
     public void testDispose() {
         bandit.spawnEnemy();
         bandit.dispose();
-        assertNull(bandit.ufoImage, "UFO image should be disposed");
+        assertNull(bandit.banditImage, "UFO image should be disposed");
     }
 }

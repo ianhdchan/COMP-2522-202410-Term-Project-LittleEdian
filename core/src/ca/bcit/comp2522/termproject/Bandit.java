@@ -20,7 +20,7 @@ public class Bandit extends Enemy {
     /** X Movement of the Bandit. */
     protected int xMovement = 0;
     /** Image of an enemy. */
-    protected Texture ufoImage;
+    protected Texture banditImage;
 
     /**
      * Constructs a new Bandit.
@@ -30,7 +30,7 @@ public class Bandit extends Enemy {
      */
     public Bandit(final GameScreen gameScreen, final Texture texture) {
         super(gameScreen);
-        this.ufoImage = texture;
+        this.banditImage = texture;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Bandit extends Enemy {
     @Override
     void drawEnemy() {
         for (Rectangle aBandit: enemy) {
-            gameScreen.game.batch.draw(ufoImage, aBandit.x, aBandit.y);
+            gameScreen.game.batch.draw(banditImage, aBandit.x, aBandit.y);
         }
     }
 
@@ -95,9 +95,9 @@ public class Bandit extends Enemy {
      */
     @Override
     public void dispose() {
-        if (ufoImage != null) {
-            ufoImage.dispose();
-            ufoImage = null;
+        if (banditImage != null) {
+            banditImage.dispose();
+            banditImage = null;
         }
     }
 }

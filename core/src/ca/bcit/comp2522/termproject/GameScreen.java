@@ -89,7 +89,7 @@ public class GameScreen implements Screen {
         player.createCowboy();
 
         // Inside GameScreen or where you handle asset loading
-        Texture banditTexture = new Texture(Gdx.files.internal("ufo_sprite.png"));
+        Texture banditTexture = new Texture(Gdx.files.internal("bandit.png"));
         Texture laserTexture = new Texture(Gdx.files.internal("laser.png"));
 
         laser = new Laser(this, laserTexture);
