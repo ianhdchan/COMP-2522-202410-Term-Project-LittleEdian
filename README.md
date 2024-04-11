@@ -31,6 +31,6 @@ Edro Gonzales | **A01257468** | Nog-bs
 
 Your character will start off with 5 health and your goal is to survive as long as possible dodging projectiles as it progressively gets harder. If you last past a minute, you will receive a very hard ramp-up in difficulty. Hope you will enjoy the game :) !
 
-### Reflection
+## Reflection
 
 This game was an awesome way for us to solidify what we learnt about OOP the past few months. Coming from a term where we focussed more on procedural based programming with Python, the shift to OOP was a very welcoming challenge and this game demonstrates concepts that we learned over the term. Enjoy!
