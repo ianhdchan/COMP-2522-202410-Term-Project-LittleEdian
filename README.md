@@ -18,7 +18,7 @@ Edro Gonzales | **A01257468** | Nog-bs
 
 1. Clone the project repository using `git clone`.
 
-2. Run the program from the `DesktopLauncher.java` that is within the desktop.
+2. Run the program from the `DesktopLauncher.java` that is within the desktop folder.
 
 ## Controls
 
