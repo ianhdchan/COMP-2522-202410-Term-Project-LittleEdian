@@ -10,18 +10,22 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
  * @author Ian Chan A00910012
  * @version 2024
  */
-public class DesktopLauncher {
 
+public class DesktopLauncher {
+	private static final int FPS = 60;
+	private static final int WIDTH = 800;
+	private static final int HEIGHT = 600;
 	/**
-	 * Drives the program
+ 	 * Drives the program.
 	 * @param arg unused
 	 */
-	public static void main (String[] arg) {
+	public static void main(final String[] arg) {
+
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Little Cowboy Edian");
-		config.setWindowedMode(800, 600);
+		config.setWindowedMode(WIDTH, HEIGHT);
 		config.useVsync(true);
-		config.setForegroundFPS(60);
+		config.setForegroundFPS(FPS);
 		new Lwjgl3Application(new COMP2522TermProject(), config);
 	}
 }
