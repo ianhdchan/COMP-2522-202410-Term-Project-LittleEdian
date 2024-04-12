@@ -88,7 +88,7 @@ public class Laser extends Enemy {
     }
 
     /**
-     * Dispose image to prevent memory leaks.
+     * Dispose laser image to free up memory.
      */
     @Override
     public void dispose() {
