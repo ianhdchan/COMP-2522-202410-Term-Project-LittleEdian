@@ -18,10 +18,6 @@ import com.badlogic.gdx.utils.ScreenUtils;
  * @version 2024
  */
 public class MainMenuScreen implements Screen {
-    /** The max screen width. */
-    public static final int SCREEN_X = 800;
-    /** The max screen height. */
-    public static final int SCREEN_Y = 600;
     /** The red component of the clear color, in the range 0-1. */
     public static final float CLEARRED = 0;
 
@@ -51,8 +47,9 @@ public class MainMenuScreen implements Screen {
         this.game = game;
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, SCREEN_X, SCREEN_Y);
-        mainMenu = new TextureRegion(new Texture("mainmenu.jpg"), 0, 0, SCREEN_X, SCREEN_Y).getTexture();
+        camera.setToOrtho(false, GameScreen.SCREEN_X, GameScreen.SCREEN_Y);
+        mainMenu = new TextureRegion(new Texture("mainmenu.jpg"), 0, 0, GameScreen.SCREEN_X,
+                GameScreen.SCREEN_Y).getTexture();
     }
 
     @Override
@@ -75,11 +72,11 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         final int welcomeMessageX = 100;
-        final int welcomeMessageY = SCREEN_Y - 150;
-        final int instructionMessageY = SCREEN_Y - 200;
+        final int welcomeMessageY = GameScreen.SCREEN_Y - 150;
+        final int instructionMessageY = GameScreen.SCREEN_Y - 200;
 
         game.batch.begin();
-        game.batch.draw(mainMenu, 0, 0, SCREEN_X, SCREEN_Y);
+        game.batch.draw(mainMenu, 0, 0, GameScreen.SCREEN_X, GameScreen.SCREEN_Y);
         game.font.draw(game.batch, "Welcome to Little Cowboy Edian baby!", welcomeMessageX, welcomeMessageY);
         game.font.draw(game.batch, "Press the Space Bar to begin.", welcomeMessageX, instructionMessageY);
         game.batch.end();
