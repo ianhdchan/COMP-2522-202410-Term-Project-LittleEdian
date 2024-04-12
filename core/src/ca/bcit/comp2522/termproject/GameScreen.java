@@ -85,7 +85,7 @@ public class GameScreen implements Screen {
         battleBGM.setLooping(true);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 600);
+        camera.setToOrtho(false, SCREEN_X, SCREEN_Y);
         player.createCowboy();
 
         // Inside GameScreen or where you handle asset loading
@@ -108,15 +108,15 @@ public class GameScreen implements Screen {
      * Draws the game elements.
      */
     private void draw() {
-        ScreenUtils.clear(0, 0, 0.2f, 1);
-
+        ScreenUtils.clear(MainMenuScreen.CLEARRED, MainMenuScreen.CLEARGREEN, MainMenuScreen.CLEARBLUE,
+                MainMenuScreen.CLEARALPHA);
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.batch.draw(background, 0, 0, 800, 600);
+        game.batch.draw(background, 0, 0, GameScreen.SCREEN_X, GameScreen.SCREEN_Y);
         game.font.setColor(0,0,0,1);
-        game.font.draw(game.batch, "Health Points: " + healthPoints, 0, 600);
+        game.font.draw(game.batch, "Health Points: " + healthPoints, 0, GameScreen.SCREEN_Y);
 
         formattedTime = String.format("%.2f", changeDifficulty.timeSeconds);
         game.font.draw(game.batch, "Time: " + formattedTime, 0, 580);
@@ -173,8 +173,14 @@ public class GameScreen implements Screen {
         return game;
     }
 
+    /**
+     * Gets the player boundaries
+     *
+     * @param delta The time between frames.
+     */
+
     @Override
-    public void render(float delta) {
+    public void render(final float delta) {
         draw();
         player.isWithinBounds();
         updateEnemy();
