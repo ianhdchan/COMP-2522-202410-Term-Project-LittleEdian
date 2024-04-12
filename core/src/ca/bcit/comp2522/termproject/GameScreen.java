@@ -26,6 +26,10 @@ public class GameScreen implements Screen {
 
     /** The max screen height. */
     public static final int SCREEN_Y = 600;
+    /** Initial health points. */
+    public static final int INITIAL_HEALTH_POINTS = 5;
+    /** One second in nanoseconds. */
+    public static final int ONE_SECOND = 1000000000;
 
     /** The game instance. */
     protected COMP2522TermProject game;
@@ -46,10 +50,10 @@ public class GameScreen implements Screen {
     protected Bandit bandit2;
 
     /** Nanoseconds in one second. */
-    protected int oneSecond = 1000000000;
+    protected int oneSecond = ONE_SECOND;
 
     /** Player's health points. */
-    protected int healthPoints = 5;
+    protected int healthPoints = INITIAL_HEALTH_POINTS;
 
     /** Formatted Time. */
     protected String formattedTime;
@@ -65,14 +69,13 @@ public class GameScreen implements Screen {
 
     /** Object representing laser enemies. */
     private final Laser laser;
-
     /**
      * Constructs a new GameScreen.
      *
      * @param game The game instance.
      */
     public GameScreen(final COMP2522TermProject game) {
-        float MUSIC_VOLUME = 0.1F;
+        final float musicVolume = 0.5f;
         this.game = game;
 
         player.cowboyStillTexture();
@@ -81,7 +84,7 @@ public class GameScreen implements Screen {
 
         damageNoise = Gdx.audio.newSound(Gdx.files.internal("hurt-sound.wav"));
         battleBGM = Gdx.audio.newMusic(Gdx.files.internal("battle-bgm.mp3"));
-        battleBGM.setVolume(MUSIC_VOLUME);
+        battleBGM.setVolume(musicVolume);
         battleBGM.setLooping(true);
 
         camera = new OrthographicCamera();
@@ -99,6 +102,9 @@ public class GameScreen implements Screen {
         laser.spawnEnemy();
     }
 
+    /**
+     * Plays the background music.
+     */
     @Override
     public void show() {
         battleBGM.play();
@@ -108,6 +114,7 @@ public class GameScreen implements Screen {
      * Draws the game elements.
      */
     private void draw() {
+        final int formatTimeY = 580;
         ScreenUtils.clear(MainMenuScreen.CLEARRED, MainMenuScreen.CLEARGREEN, MainMenuScreen.CLEARBLUE,
                 MainMenuScreen.CLEARALPHA);
         camera.update();
@@ -115,11 +122,11 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(background, 0, 0, GameScreen.SCREEN_X, GameScreen.SCREEN_Y);
-        game.font.setColor(0,0,0,1);
+        game.font.setColor(0, 0, 0, 1);
         game.font.draw(game.batch, "Health Points: " + healthPoints, 0, GameScreen.SCREEN_Y);
 
         formattedTime = String.format("%.2f", changeDifficulty.timeSeconds);
-        game.font.draw(game.batch, "Time: " + formattedTime, 0, 580);
+        game.font.draw(game.batch, "Time: " + formattedTime, 0, formatTimeY);
 
         laser.drawEnemy();
 
@@ -135,10 +142,11 @@ public class GameScreen implements Screen {
      * Updates enemy positions and game state.
      */
     private void updateEnemy() {
-        long lowerBound = 5000000000L;
-        long upperBound = 7000000000L;
+        final long lowerBound = 5000000000L;
+        final long upperBound = 7000000000L;
         long randomNanoseconds = ThreadLocalRandom.current().nextLong(lowerBound, upperBound);
         final int initialSpeed = 150;
+        final int thirtySeconds = 30;
         bandit.setSpeed(initialSpeed);
 
         changeDifficulty.timer();
@@ -153,7 +161,7 @@ public class GameScreen implements Screen {
 
         long randomNanoseconds2 = ThreadLocalRandom.current().nextLong(lowerBound, upperBound);
 
-        if (changeDifficulty.timeSeconds > 30) {
+        if (changeDifficulty.timeSeconds > thirtySeconds) {
             if (TimeUtils.nanoTime() - bandit2.lastSpawnTime > randomNanoseconds2) {
                 bandit2.spawnEnemy();
             }
@@ -165,16 +173,7 @@ public class GameScreen implements Screen {
     }
 
     /**
-     * Gets the game state.
-     *
-     * @return The game state.
-     */
-    COMP2522TermProject getGame() {
-        return game;
-    }
-
-    /**
-     * Gets the player boundaries
+     * Gets the player boundaries.
      *
      * @param delta The time between frames.
      */
@@ -191,7 +190,7 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {
+    public void resize(final int width, final int height) {
         // Unused method, no implementation needed.
     }
 
@@ -210,6 +209,9 @@ public class GameScreen implements Screen {
         // Unused method, no implementation needed.
     }
 
+    /**
+     * Disposes of the game assets.
+     */
     @Override
     public void dispose() {
         damageNoise.dispose();
